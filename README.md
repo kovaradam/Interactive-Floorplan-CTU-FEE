@@ -1,1 +1,1 @@
-# Interactive-Floorplan-CTU-FEE
+# Interactive Floorplans for CTU FEE in Prague
