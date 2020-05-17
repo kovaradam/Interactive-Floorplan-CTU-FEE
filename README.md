@@ -8,6 +8,8 @@ Single-page web-application built on MERN Stack ([MongoDB](https://www.mongodb.c
 
 ### Pathfinding
 
+The app provides a simple pathfinding solution implemented using modified A-Star algorithm, which finds a path between any two points on a map.
+
 <p align="center">
   <img src="./gifs/gif1.gif" width="700"/>
 </p>
