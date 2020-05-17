@@ -6,7 +6,7 @@ Then - assuming you have [Node](https://nodejs.org/en/download/) installed - you
 
 * `npm install` to download dependencies
 
-* `tsc` to compile JS files or `tsc -w` to run compiler in watch mode  
+* `tsc` to compile TS files or `tsc -w` to run compiler in watch mode  
 
-* `npm start` to run the app(nodemon)
+* `npm start` to run the app (via nodemon)
 
