@@ -5,6 +5,9 @@ Single-page web-application built on MERN Stack ([MongoDB](https://www.mongodb.c
 <p align="center">
   <img src="./gifs/gif0.gif" width="700"/>
 </p>
+
+## Pathfinding
+
 <p align="center">
   <img src="./gifs/gif1.gif" width="700"/>
 </p>
