@@ -4,8 +4,10 @@ To run, it is necessary to set required values in .env file, in order to connect
 
 Then - assuming you have [Node](https://nodejs.org/en/download/) installed - you can simply run
 
-* `npm install` to download dependencies
+* `npm install` to download dependencies,
 
-and
+then
 
 * `npm start` to run the app
+
+and voila!
