@@ -4,6 +4,6 @@
 
 ![](gif1.gif)
 
-![](gif2.gif)
+![](gif2.gif | width=100)
 
 ![](gif3.gif)
