@@ -1,6 +1,6 @@
 # Server build
 
-Stripped down server files with only transpiled JS files and no devDependencies.
+Stripped down server folder with only transpiled JS files and no required devDependencies.
 
 To run, it is necessary to set required values in .env file, in order to connect to database and gain access to sources from Usermap API (credentials can be acquired from [Apps Manager](https://auth.fit.cvut.cz/manager/index.jsf)). 
 
