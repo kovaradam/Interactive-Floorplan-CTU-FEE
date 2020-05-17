@@ -4,6 +4,6 @@
 
 ![](gif1.gif)
 
-![](gif2.gif =250x)
+<img src="./gif2.gif" width="200">
 
 ![](gif3.gif)
