@@ -9,5 +9,5 @@
 </p>
 
 <p align="center">
-  <img src="./gif2.gif" width="300"/>
+  <img src="./gif3.gif" width="300"/>
 </p>
