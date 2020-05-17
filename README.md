@@ -5,6 +5,9 @@
 ![](gif1.gif)
 
 <p align="center">
-  <img src="./gif2.gif" width="400"/>
+  <img src="./gif2.gif" width="300"/>
 </p>
-![](gif3.gif)
+
+<p align="center">
+  <img src="./gif2.gif" width="300"/>
+</p>
