@@ -4,6 +4,6 @@
 
 ![](gif1.gif)
 
-![](gif2.gif =250x250)
+[](./gif2.gif =250x)
 
 ![](gif3.gif)
