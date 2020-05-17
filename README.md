@@ -14,11 +14,13 @@ The floorplans show locations of classrooms, facilities and services or offices.
 
 ### Pathfinding
 
-The also app provides a simple pathfinding solution implemented using modified [A*](https://en.wikipedia.org/wiki/A*_search_algorithm) search algorithm, which finds a path between any two points on a map.
+The app also provides a simple pathfinding solution implemented using modified [A*](https://en.wikipedia.org/wiki/A*_search_algorithm) search algorithm, which finds a path between any two points on a map.
 
 <p align="center">
   <img src="./gifs/gif1.gif" width="700"/>
 </p>
+
+The search can be set to find only such paths, that would be accessible to people with limited mobility.
 
 <p align="center">
   <img src="./gifs/gif2.gif" width="300"/>
