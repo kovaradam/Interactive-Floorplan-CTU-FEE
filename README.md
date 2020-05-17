@@ -8,7 +8,7 @@ Single-page web-application built on MERN Stack ([MongoDB](https://www.mongodb.c
 
 ### Pathfinding
 
-The app provides a simple pathfinding solution implemented using modified [A*](https://en.wikipedia.org/wiki/A*_search_algorithm) search algorithm, which finds a path between any two points on a map.
+The also app provides a simple pathfinding solution implemented using modified [A*](https://en.wikipedia.org/wiki/A*_search_algorithm) search algorithm, which finds a path between any two points on a map.
 
 <p align="center">
   <img src="./gifs/gif1.gif" width="700"/>
