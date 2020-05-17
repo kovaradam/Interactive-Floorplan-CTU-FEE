@@ -1,10 +1,10 @@
 # Interactive Floorplans for CTU FEE in Prague
 
 <p align="center">
-  <img src="./gifs/gif0.gif" width="500"/>
+  <img src="./gifs/gif0.gif" width="700"/>
 </p>
 <p align="center">
-  <img src="./gifs/gif1.gif" width="500"/>
+  <img src="./gifs/gif1.gif" width="700"/>
 </p>
 
 <p align="center">
