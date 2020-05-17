@@ -1,0 +1,16 @@
+.toilet-icon-wrapper {
+  margin: 0;
+  position: absolute;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.toilet-icon {
+  color: rgb(85, 85, 85);
+}
+
+@media only screen and (max-width: 768px) {
+  .toilet-icon-wrapper {
+    font-size: 2vw;
+  }
+}

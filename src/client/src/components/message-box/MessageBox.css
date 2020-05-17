@@ -1,0 +1,81 @@
+.message-box-wrapper {
+  white-space: nowrap;
+  position: absolute;
+  color: gray;
+  font-size: 20px;
+  z-index: 4;
+  top: 201px;
+  left: 460px;
+  font-weight: 400;
+  width: min-content;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  /* background-color: rgba(255, 255, 255, 0.801); */
+}
+
+.error {
+  color: rgb(245, 116, 116);
+}
+.message-box-contents {
+  position: relative;
+  overflow: hidden;
+  margin-left: -50%;
+  background-color: rgba(255, 255, 255, 0.99);
+  box-shadow: 0px 4px 5px 8px rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+}
+
+.message {
+  float: left;
+  padding: 0;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.message-box-wrapper.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media only screen and (max-width: 768px) {
+  .message-box-wrapper {
+    position: fixed;
+    font-size: 5vw;
+    top: 17vw;
+    left: 38vw;
+    width: min-content;
+    white-space: normal;
+    height: 14vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .message-box-contents {
+    margin-left: -50%;
+    
+  }
+}
+@media only screen and (max-width: 768px) and (orientation:portrait){
+  .message-box-contents {
+    padding-left: 4vw;
+    max-width: 76vw;
+    width: 60vw;
+  }
+}
+
+@media only screen and (max-width: 768px) and (orientation:landscape){
+  
+  .message-box-wrapper {
+    font-size: 3vw;
+    top:12vw;
+    left:50vw;
+    width: min-content;    
+  }
+
+  .message{
+    white-space: nowrap;
+  }
+
+}

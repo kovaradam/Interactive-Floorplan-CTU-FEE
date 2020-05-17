@@ -1,0 +1,220 @@
+.map {
+  position: absolute;
+  left: 60px;
+  top: 200px;
+  width: min-content;
+  height: min-content;
+}
+
+@media only screen and (min-width: 768px) {
+  .map {
+    transform: scale(1) !important;
+    transform: translate(0%, 0%) !important;
+  }
+}
+
+.room {
+  transition: all 200ms;
+}
+
+.classroom {
+  fill: rgb(170, 196, 243);
+}
+.classroom:hover {
+  fill: rgb(222, 233, 253);
+}
+
+.Conference, .Office{
+  fill: rgb(202, 203, 206);
+}
+.Meeting:hover, .Office:hover{
+  fill: rgb(225, 226, 231);
+}
+
+.facility {
+  fill: rgb(248, 252, 214);
+}
+.facility:hover {
+  fill: rgb(250, 252, 238);
+  /* fill:rgb(247, 238, 238); */
+}
+
+.dept-label {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  font-weight: 300;
+  color: rgb(176, 176, 255);
+  color: rgb(67, 67, 68);
+  pointer-events: none;
+}
+
+.classroom:hover,
+.facility:hover {
+  cursor: pointer;
+}
+
+text {
+  cursor: pointer;
+}
+
+.room-number-wrapper {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.room-number-header {
+  font-size: 14px;
+  margin-left: -50%;
+  color: white;
+  font-weight: 300;
+  text-align: center;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.room-number-header:hover {
+  cursor: pointer;
+}
+
+.entry-wrapper {
+  position: absolute;
+  z-index: 3;
+  color: rgba(247, 36, 36, 0.144);
+  pointer-events: none;
+}
+.entry-current {
+  color: rgba(247, 36, 36, 0.6);
+}
+
+.entry-contents {
+  pointer-events: all;
+  width: 100%;
+  margin-left: -50%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.entry-adjacent{
+  flex-direction: column;
+}
+
+.entry-header {
+  position: relative;
+
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  font-weight: 400;
+}
+.entry-header,
+.entry-icon {
+  transition: all 200ms;
+}
+.entry-header:hover {
+  cursor: default;
+}
+
+.entry-icon {
+  margin-top: 5px;
+  font-size: 25px;
+}
+
+.entry-icon:hover, .adjacent:hover {
+  color: rgba(247, 36, 36, 0.8);
+  cursor: pointer;
+}
+
+#item-pin-wrapper {
+  position: absolute;
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .map {
+    position: relative;
+    min-width: 100vw;
+    left: 50%;
+    top: 30vh;
+    touch-action: none;
+    margin-left: -50%;
+    /* transform: scale(1.5); */
+  }
+
+  .map-container {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  #item-pin-wrapper {
+    display: block;
+    position: absolute;
+    z-index: 5;
+  }
+
+  .item-pin {
+    position: relative;
+    width: 100%;
+    margin-left: -50%;
+    margin-top: -100%;
+    font-size: 20vw;
+    opacity: 0.8;
+    color: brown;
+    animation: slide-down 200ms;
+    visibility: visible;
+  }
+
+  @keyframes slide-down {
+    0% {
+      top: -100vh;
+    }
+    100% {
+      top: 0vh;
+    }
+  }
+  svg {
+    width: 100vw;
+    height: 75vw;
+    /* transform: scale(1.5); */
+  }
+
+  .dept-label {
+    font-size: 4vw;
+  }
+
+  .room-number-header {
+    font-size: 2vw;
+  }
+
+  .entry-wrapper {
+    font-size: 2vw;
+  }
+
+  .entry-icon {
+    font-size: 3vw;
+  }
+
+  .filter-item-map-icon {
+    font-size: 2vw;
+  }
+
+  .img-icon {
+    width: 2.5vw;
+  }
+}
+
+@media only screen and (max-width: 768px) and (orientation:landscape){
+
+  .map{
+    top:0;
+  }
+  
+  .map-container{
+    transform: scale(0.7) translate(1px, 1px);
+  }
+
+}

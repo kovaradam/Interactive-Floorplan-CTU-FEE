@@ -1,0 +1,283 @@
+.App {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  width: 1150px;
+  min-height: 100vh;
+  margin: auto;
+}
+
+*:focus {
+  outline: none;
+}
+
+.background {
+  position: absolute;
+  left: 15px;
+  z-index: -1;
+  top: 206px;
+  width: 825px;
+  /* opacity:0.2; */
+}
+
+header h1 {
+  font-weight: 300;
+  font-size: 45px;
+}
+
+header h1:hover {
+  cursor: default;
+}
+
+.delim {
+  z-index: 4;
+  margin-top: 20px;
+  position: relative;
+  float: left;
+  border-style: solid;
+  border-color: rgb(189, 186, 186);
+  border-width: 1px;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  width: 0;
+  height: 650px;
+  box-shadow: -3px 0px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.dimmer {
+  position: absolute;
+  display: flex;
+  left: 60px;
+  top: 238px;
+  width: 700px;
+  height: 524px;
+  z-index: 4;
+  background-color: rgba(253, 253, 253, 0.4);
+  animation: dimmer-fade 100ms;
+}
+
+@keyframes dimmer-fade{
+  0%{opacity:0}
+  100%{opacity:1}
+}
+
+.dimmer div{
+  margin:auto;
+  /* margin-top: 20px; */
+  font-size: 25px;
+  padding: 0;
+  display: flex;
+  align-items: baseline;
+  color: rgb(245, 116, 116);
+  background-color: rgba(253, 253, 253, 0.6);
+  box-shadow: 0px 0px 30px 80px rgba(253, 253, 253, 0.6);
+}
+
+.dimmer p{
+  margin:0;
+  font-weight: 400;
+}
+
+.dimmer div i{
+  margin-left: 20px;
+  font-weight: 200;
+}
+
+.dimmer div i:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.dimmer-icon {
+  font-size: 100px;
+  margin: auto;
+  text-align: center;
+  color: rgb(170, 196, 243);
+}
+
+.end-pin {
+  color: rgba(255, 0, 0, 0.582);
+  position: absolute;
+  z-index: 3;
+  font-size: 40px;
+}
+
+.not-avalaible-dimmer{
+  flex-direction: column;
+  align-items: center !important;
+  color: rgb(170, 196, 243) !important;
+}
+
+.not-avalaible-dimmer i{
+  margin:0;
+}
+
+.filter-item-map-icon {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.slow-spin {
+  -webkit-animation: fa-spin 6s infinite linear;
+  animation: fa-spin 6s infinite linear;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 100ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 100ms ease-in;
+}
+
+.home-button {
+  position: absolute;
+  z-index: 4;
+  top: 294px;
+  left: 0%;
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: rgb(190, 176, 176);
+  border-width: 1px;
+  border-radius: 3px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  float: left;
+  height: 45px;
+  width: 57px;
+  margin-top: 20px;
+  box-shadow: 0px 1px 10px -2px rgba(0, 0, 0, 0.2);
+}
+
+.home-button:hover,
+.home-button:focus {
+  background-color: rgb(190, 176, 176);
+  color: white;
+  cursor: pointer;
+}
+
+.home-button:active {
+  background-color: rgb(224, 217, 217);
+}
+
+.filters-dropdown-slidedown {
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+}
+
+#filters-button, #floor-slider-button {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .App {
+    width: 100vw;
+    min-height: 100vh;
+  }
+
+  .end-pin {
+    display: none;
+  }
+
+  * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .home-button {
+    display: none;
+  }
+
+  header,
+  .delim {
+    display: none;
+  }
+
+  #floor-slider-button{
+    bottom:18vw;
+    width: 15vw;
+    height: 17vw;
+    margin:3vw;
+    font-size: 10vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .dimmer {
+    position: absolute;
+    display: flex;
+    left: 0;
+    top: 17vh;
+    width: 100vw;
+    height: 70vh;
+    z-index: 4;
+    background-color: rgba(253, 253, 253, 0.4);
+    touch-action: pan-x;
+  }
+
+  .main-page-button {
+    overflow: hidden;
+    position: fixed;
+    display: flex !important;
+    border-radius: 5vw;
+    z-index: 5;
+    border-style: hidden;
+    background-color: rgba(190, 176, 176, 0.651);
+    box-shadow: 0px 1px 10px -2px rgba(0, 0, 0, 0.5);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    transition: all 200ms;
+  }
+  .main-page-button:active {
+    background-color: rgba(190, 176, 176, 0.295);
+    transform: scale(1.2);
+  }
+  #filters-button {
+    
+    width: 17vw;
+    height: 17vw;
+    font-size: 11vw;
+    margin: 3vw;
+    top: 18vw;
+    right: 0;
+    
+  }
+
+}
+
+@media only screen and (max-width: 768px) and (orientation:landscape){
+  #filters-button {
+    width:8vw;
+    height:8vw;
+    font-size: 5vw;
+    border-radius: 2vw;
+    top:0;
+    margin: 3vw;
+  }
+  #floor-slider-button{
+    width:8vw;
+    height:10vw;
+    font-size: 5vw;
+    border-radius: 2vw;
+    top:10vw;
+    /* bottom:5vw; */
+    left:auto;
+    right:0;
+    margin: 3vw;
+  }
+}

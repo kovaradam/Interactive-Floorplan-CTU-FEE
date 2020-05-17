@@ -1,0 +1,8 @@
+.vertical-icon {
+  position: absolute;
+  z-index: 2;
+}
+
+.vertical-icon:hover {
+  cursor: pointer;
+}

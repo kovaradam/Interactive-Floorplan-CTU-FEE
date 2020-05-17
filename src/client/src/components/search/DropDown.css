@@ -1,0 +1,75 @@
+.dd-wrapper {
+  overflow: hidden;
+  float: left;
+  /* width: 61px; */
+  width: 71px;
+  /* margin-right: 10px;
+    margin-left: 10px; */
+  /* border-color: rgb(124, 118, 118); */
+  border-color: rgb(190, 176, 176);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  box-shadow: 0px 1px 10px -2px rgba(0, 0, 0, 0.2);
+}
+
+.dd-header:focus {
+  outline: none;
+}
+
+.dd-delimiter {
+  float: left;
+  width: 40px;
+  color: rgb(75, 73, 73);
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.dd-header {
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 20px;
+}
+
+.dd-header-title {
+  /* margin-left: 7px; */
+  /* margin-top: 6px; */
+  /* float: left; */
+}
+
+.dd-list {
+  overflow: hidden;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+.dd-list-item {
+  float: auto;
+  padding: 5px;
+  transition: background-color 1s;
+  transition-timing-function: ease;
+}
+
+.dd-list-item:hover,
+.dd-header:hover,
+.dd-header:focus,
+.dd-list-item:focus {
+  color: white;
+  background-color: rgb(190, 176, 176);
+  cursor: pointer;
+}
+
+span {
+  float: right;
+  /* margin-right: 7px; */
+}
+
+.react-slidedown.my-dropdown-slidedown {
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}

@@ -1,0 +1,23 @@
+polyline{
+  fill:none;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.path {
+  /* stroke: rgba(255, 184, 184, 0.6); */
+  stroke: rgba(255, 184, 184, 0.4);
+}
+
+.path-current {
+  /* stroke: rgba(255, 124, 124, 0.6); */
+  stroke: rgba(255, 124, 124, 0.6);
+}
+
+.path:hover {
+  cursor: pointer;
+}
+
+.path-current:hover {
+  cursor: default;
+}
