@@ -3,7 +3,7 @@
 ![](gif0.gif)
 
 ![](gif1.gif)
-
-<img src="./gif2.gif" width="200">
-
+<div style="text-align:center">
+<img src="./gif2.gif" width="400">
+</div>
 ![](gif3.gif)
