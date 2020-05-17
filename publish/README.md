@@ -9,3 +9,4 @@ Then - assuming you have [Node](https://nodejs.org/en/download/) installed - you
 and
 
 * `npm start` to run the app
+
