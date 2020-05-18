@@ -30,7 +30,7 @@ export function findVerticals(
       building
     );
     if (vertical) return [[vertical, startCoords.floor, endCoords.floor]];
-    reachedFloor = findNearestCommonReachedFloor(startCoords.floor, endCoords.floor);
+    reachedFloor = findNearestCommonReachedFloor(startCoords.floor, endCoords.floor, building, accessibility);
   }
   while (reachedFloor !== startCoords.floor) {
     let vertical = findCheapestVertical(
@@ -62,7 +62,7 @@ export function findVerticals(
 export function findCheapestVertical(
   startCoords: TreeCoords,
   endCoords: TreeCoords,
-  accessibility = false,
+  accessibility: boolean,
   building: buildingCode
 ): VerticalPath | null {
 
@@ -90,11 +90,11 @@ export function findCheapestVertical(
   }
 }
 
-function findNearestCommonReachedFloor(startFloor: number, endFloor: number, building: 'T2' = 'T2') {
+function findNearestCommonReachedFloor(startFloor: number, endFloor: number, building: buildingCode, accessibility: boolean) {
   let reachedFloor = startFloor;
   let minDist = Number.MAX_VALUE;
   floorNums[building].forEach(n => {
-    if (doesFloorReach(building, n, startFloor, endFloor)) {
+    if (doesFloorReach(building, accessibility, n, startFloor, endFloor)) {
       const dist = Math.abs(startFloor - n) + Math.abs(endFloor - n);
       if (dist < minDist) {
         reachedFloor = n;
@@ -105,9 +105,10 @@ function findNearestCommonReachedFloor(startFloor: number, endFloor: number, bui
   return reachedFloor;
 }
 
-function doesFloorReach(building: buildingCode, floor: number, ...endFloors: number[]) {
-  for (let i = 0; i < verticals[building].length; i++) {
-    const p = verticals[building][i];
+function doesFloorReach(building: buildingCode, accessibility:boolean, floor: number, ...endFloors: number[]) {
+  const verts = verticals[building].filter(v => accessibility ? isAccessible(v.type) : true)
+  for (let i = 0; i < verts.length; i++) {
+    const p = verts[i];
     if (floorInRange(p.floors, floor)) {
       for (let i = 0; i < endFloors.length; i++) {
         if (floorInRange(p.floors, endFloors[i])) {
