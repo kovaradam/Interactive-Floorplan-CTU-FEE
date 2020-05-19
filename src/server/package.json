@@ -8,7 +8,7 @@
     "start": "nodemon dist/app.js"
   },
   "author": "kovaradam1@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "base-64": "^0.1.0",
     "body-parser": "^1.19.0",
