@@ -10,13 +10,4 @@ export const treeNodeSchema = new Schema({
     building:  {type: String, index: true}
 })
 
-export const verticalPathSchema = new Schema({
-    id: String,
-    building: String,
-    coords: {floor: Number, x: Number, y: Number},
-    type: Number,
-    floors: []
-})
-
 export const TreeNodeModel = mongoose.model('TreeNode', treeNodeSchema)
-export const VerticalPathModel = mongoose.model('VerticalPath', verticalPathSchema)

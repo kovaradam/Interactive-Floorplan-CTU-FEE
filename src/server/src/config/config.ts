@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import { ConnectionStates } from 'mongoose';
 
 dotenv.config();
 

@@ -1,13 +1,9 @@
-import { TreeNodeModel, VerticalPathModel } from './schemas';
-import { treeNodes } from './data/tree-nodes-new';
-import { verticalPaths } from './data/vertical-paths';
+import { TreeNodeModel } from './schemas';
+import { treeNodes } from './data/tree-nodes';
 import connection from '../app';
 
 function dropCollection(collection: string) {
-  connection.dropCollection(collection, function (
-    err: any
-    //result: any
-  ) {
+  connection.dropCollection(collection, function (err: any) {
     console.log(`${collection} dropped`);
   });
 }
@@ -34,21 +30,5 @@ export async function createTreeNodes() {
   }
   for (const building in treeNodes) {
     delete treeNodes[building];
-  }
-}
-
-export function createVerticals() {
-  dropCollection('verticalpaths');
-  for (const building in treeNodes) {
-    verticalPaths[building].forEach(d => {
-      const instance = new VerticalPathModel({
-        _itemId: d[0],
-        _building: d[1],
-        _coords: { floor: d[2][0], x: d[2][1], y: d[2][2] },
-        _type: d[3],
-        _floors: d[4]
-      });
-      instance.save();
-    });
   }
 }

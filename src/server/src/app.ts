@@ -5,7 +5,7 @@ import rateLimit from 'express-rate-limit';
 import config from './config/config';
 import routes from './routes/routes';
 import mongoose from 'mongoose';
-import { createTreeNodes, createVerticals } from './db/launch-db';
+import { createTreeNodes } from './db/launch-db';
 import path from 'path';
 
 mongoose
@@ -18,15 +18,13 @@ mongoose
 
 export default mongoose.connection;
 
-// createVerticals()
-
 const app = express();
 
 app.use(json());
 app.use(cors());
 
 const limiter = rateLimit({
-  windowMs: 1 * 30 * 1000, // 0.5 minute
+  windowMs: 1 * 20 * 1000, // 20 secs
   max: 10
 });
 

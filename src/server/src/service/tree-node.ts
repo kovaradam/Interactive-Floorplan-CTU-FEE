@@ -1,12 +1,12 @@
 import { TreeNodeModel } from '../db/schemas';
 import TreeNode from '../model/tree-node';
 import { buildingCode, buildings } from '../utils/utils';
-import HashMap from '../utils/hash-map';
+import HashTable from '../utils/hash-map';
 
 let LOADED_TREE: TreeNode[] = [];
 
 export async function getFloorTree(floor: Number) {
-  let hashMap: HashMap;
+  let hashTable: HashTable;
 
   if (LOADED_TREE.length > 0) {
     if (LOADED_TREE[0].coords.floor == floor) {
@@ -20,7 +20,7 @@ export async function getFloorTree(floor: Number) {
   const treeNodes: TreeNode[] = [];
   return TreeNodeModel.find({ 'coords.floor': floor })
     .then((dbNodes: any[]) => {
-      hashMap = new HashMap(dbNodes.length);
+      hashTable = new HashTable(dbNodes.length);
       dbNodes.forEach(n => {
         const newNode = new TreeNode(
           n.itemId,
@@ -32,16 +32,16 @@ export async function getFloorTree(floor: Number) {
           n.building
         );
         treeNodes.push(newNode);
-        hashMap.insert(newNode);
+        hashTable.insert(newNode);
       });
       
       for (let i = 0; i < treeNodes.length; i++) {
         dbNodes[i].children.forEach((childId: string) => {
-          treeNodes[i].addChild(hashMap.get(childId)!);
+          treeNodes[i].addChild(hashTable.get(childId)!);
         });
       }
       LOADED_TREE = treeNodes;
-      // console.log(hashMap.stats)
+      // console.log(hashTable.stats)
       return treeNodes;
     });
 }
@@ -60,7 +60,6 @@ export async function findNodeById(id: string) {
       );
     })
     .catch((e: any) => {
-      // console.log(e, id);
       e.id = id;
       throw e;
     });
