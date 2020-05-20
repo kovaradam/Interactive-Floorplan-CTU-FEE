@@ -12,7 +12,7 @@ export default class TreeNode {
 
   public findNext(parentId: string, end: TreeNode): TreeNode | null {
     
-    if(!this.parentId/* !== parentId*/) {
+    if(!this.parentId) {
       this.parentId = parentId;
     }
     let retIndex;

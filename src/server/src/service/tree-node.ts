@@ -1,7 +1,7 @@
 import { TreeNodeModel } from '../db/schemas';
 import TreeNode from '../model/tree-node';
 import { buildingCode, buildings } from '../utils/utils';
-import HashTable from '../utils/hash-map';
+import HashTable from '../utils/hash-table';
 
 let loadedTree: TreeNode[] = [];
 
@@ -12,7 +12,6 @@ export async function getFloorTree(floor: Number) {
     if (loadedTree[0].coords.floor == floor) {
       return loadedTree;
     } else {
-      // loadedTree.splice(0, loadedTree.length);
       loadedTree = [];
     }
   }

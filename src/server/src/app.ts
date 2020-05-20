@@ -11,8 +11,8 @@ import path from 'path';
 mongoose
   .connect(config.database.connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => {
-    console.log('Database connected')
-    createTreeNodes()
+    console.log('Database connected');
+    createTreeNodes();
   })
   .catch(err => console.log(err));
 
