@@ -9,7 +9,7 @@ export default class Usermap {
     return encodeURI(`https://kosapi.fit.cvut.cz/usermap/v1/people?query=name=="${username}"`);
   }
 
-  public static async getAccessToken() {
+  public static async fetchAccessToken() {
     const url = config.usermap.tokenEndpoint;
     const credentials = base64.encode(config.usermap.credentials as string);
     const headers = {
@@ -18,11 +18,10 @@ export default class Usermap {
       // Scope: 'urn:ctu:oauth:umapi.read'
     };
 
-    const response = await fetch(url, {
+    return await fetch(url, {
       method: "POST",
       headers: headers,
       body: "grant_type=client_credentials"
     })
-    this.ACCESS_TOKEN = (await response.json()).access_token  
   }
 }

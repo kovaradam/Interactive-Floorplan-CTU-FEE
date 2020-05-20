@@ -4,7 +4,6 @@ import fetch  from "node-fetch";
 
 
 export async function getPersonFromUsermap(query: string) {
-    try {
       const response = await fetch(usermap.url(query), {
         method: "GET",
         headers: {
@@ -12,11 +11,6 @@ export async function getPersonFromUsermap(query: string) {
         }
       });
       const json = await response.json();
-      
       return json;
-    } catch (error) {
-      //console.log(error);
-      return error;
-    }
   }
 
