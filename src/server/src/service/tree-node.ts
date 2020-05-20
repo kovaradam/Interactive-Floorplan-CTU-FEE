@@ -3,18 +3,17 @@ import TreeNode from '../model/tree-node';
 import { buildingCode, buildings } from '../utils/utils';
 import HashTable from '../utils/hash-map';
 
-let LOADED_TREE: TreeNode[] = [];
+let loadedTree: TreeNode[] = [];
 
 export async function getFloorTree(floor: Number) {
   let hashTable: HashTable;
 
-  if (LOADED_TREE.length > 0) {
-    if (LOADED_TREE[0].coords.floor == floor) {
-      // console.log("loaded tree");
-      return LOADED_TREE;
+  if (loadedTree.length > 0) {
+    if (loadedTree[0].coords.floor == floor) {
+      return loadedTree;
     } else {
-      // console.log("loading tree");
-      LOADED_TREE.splice(0, LOADED_TREE.length);
+      // loadedTree.splice(0, loadedTree.length);
+      loadedTree = [];
     }
   }
   const treeNodes: TreeNode[] = [];
@@ -40,7 +39,7 @@ export async function getFloorTree(floor: Number) {
           treeNodes[i].addChild(hashTable.get(childId)!);
         });
       }
-      LOADED_TREE = treeNodes;
+      loadedTree = treeNodes;
       // console.log(hashTable.stats)
       return treeNodes;
     });
