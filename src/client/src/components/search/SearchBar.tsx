@@ -88,7 +88,7 @@ class SearchBar extends Component<{
       y: room.y + 24,
       floor: getfloorNumber(getNumberFromId(room.id)),
       id: room.id,
-      name: person.fullName,
+      title: person.fullName,
       building: getLocationFromId(room.id) as locationCode,
     });
     this.hideList();
@@ -101,7 +101,7 @@ class SearchBar extends Component<{
       y: item.y,
       floor: item.floor,
       id: item.id,
-      name: item.title[lang],
+      title: item.title[lang],
       type: item.type[0],
       building: item.building,
       desc: item.desc?item.desc[lang]:undefined

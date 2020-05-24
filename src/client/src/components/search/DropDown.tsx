@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Building } from '../../utils/interfaces';
 import FontAwesome from 'react-fontawesome';
 import onClickOutside from 'react-onclickoutside';
 import './DropDown.css';
@@ -13,11 +12,11 @@ type DropDownState = {
 };
 class DropDown extends Component<{
   title: string;
-  list: Building[];
+  list: any[];
   toggleItem: any;
   keyPress: (e: any) => void;
 }> {
-  constructor(props: { title: string; list: Building[]; toggleItem: any; keyPress: (e: any) => void }) {
+  constructor(props: { title: string; list: any[]; toggleItem: any; keyPress: (e: any) => void }) {
     super(props);
     this.state = {
       listOpen: false,

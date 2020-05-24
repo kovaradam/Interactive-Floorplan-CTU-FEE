@@ -3,7 +3,7 @@ export enum Language {
   EN,
 }
 
-export type locationCode = 'T2' | 'KN' | ' -';
+export type locationCode = 'T2' | 'KN';
 
 export type message = {
   text: string;

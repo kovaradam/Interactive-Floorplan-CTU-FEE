@@ -1,38 +1,28 @@
-import { Type, locationCode } from './utils';
-
-interface Location {
-  id: number;
-  title: locationCode;
-  key: string;
-  selected: boolean;
-}
-export interface Building extends Location {
-  floorRange: { from: number; to: number };
-}
+import { Type } from './utils';
 
 export interface Path {
   floor: number;
   building: string;
-  points:string;
+  points: string;
 }
 
-export interface PathResult {
+export interface PathResult extends Path {
   startId: string;
-  floor:number;
   endId: string;
-  building: string;
-  points:string;
 }
 
-export interface MapItem {
+interface poi {
   x: number;
   y: number;
   floor: number;
   id: string;
-  name: string;
   building: string;
-  type?: Type;
+}
+
+export interface MapItem extends poi {
   desc?: string;
+  type?: Type;
+  title: string;
 }
 
 export interface Vertical {
@@ -49,28 +39,18 @@ export interface Vertical {
 export interface Filter {
   title: string[];
   type: Type;
-  selected: boolean; 
+  selected: boolean;
 }
-export interface Facility {
+
+export interface Facility extends poi {
   title: [string, string];
-  id: string;
   icon: string;
   type: Type[];
   selected: boolean;
-  floor: number;
-  x: number;
-  y: number;
-  desc?: [string,string],
-  building: string
+  desc?: [string, string];
 }
 
-export interface Room {
-  id: string;
-  d: string;
-  x: number;
-  y: number;
-  floor: number;
+export interface Room extends poi {
   type: Type;
-  desc?: [string,string]
-  building?: string
+  desc?: [string, string];
 }

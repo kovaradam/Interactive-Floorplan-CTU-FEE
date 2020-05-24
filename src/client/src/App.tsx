@@ -194,6 +194,7 @@ class App extends Component<{}, AppState> {
         selectedItem: item,
         floor: item.floor,
         building: item.building,
+        location: getLocationOfBuilding(item.building),
         filtersVisible: false,
       });
     }

@@ -53,7 +53,7 @@ class Map extends Component<{
     item.desc = item.desc ? item.desc[lang] : undefined;
     if (item.title !== undefined) {
       item.type = item.type[0];
-      item.name = item.title[lang];
+      item.title = item.title[lang];
     } else {
       item.y += 18;
     }
@@ -224,7 +224,7 @@ class Map extends Component<{
                       y: e.y + (e.adjacent !== '' ? 50 : 0),
                       floor: e.floor,
                       id: e.id,
-                      name: e.title,
+                      title: e.title,
                       desc: contents.entry[lang],
                       building: building,
                     })

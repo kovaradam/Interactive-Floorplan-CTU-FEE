@@ -27,9 +27,9 @@ class Filters extends Component<{
     facilities[this.props.location].forEach(i => {
       i.type.forEach(t => {
         if (this.items.has(t)) {
-          this.items.get(t)?.push(i);
+          this.items.get(t)?.push(i as Facility);
         } else {
-          this.items.set(t, [i]);
+          this.items.set(t, [i as Facility]);
         }
       });
     });
@@ -42,7 +42,7 @@ class Filters extends Component<{
       y: item.y,
       floor: item.floor,
       id: item.id,
-      name: item.title[lang],
+      title: item.title[lang],
       type: item.type[0],
       building: item.building,
       desc: item.desc?item.desc[lang]:undefined

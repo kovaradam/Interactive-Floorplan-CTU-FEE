@@ -55,7 +55,6 @@ class PathSearchBox extends Component<{
 
   dragging = (event: any) => {
     event.stopPropagation();
-    //event.stopImmediatePropagation()
     const box = event.target;
     if (box.id !== 'search-box') return;
     const x = event.clientX - this.dX;
@@ -87,8 +86,8 @@ class PathSearchBox extends Component<{
     const { start, end } = query;
     const { accessibility } = this.state;
     const givenStart = query.start !== null;
-    const startEntry = !givenStart ? contents.searchPathBox['search-path-placeholder'][lang] : start!.name || start!.id;
-    let endEntry = end!.name || end!.id;
+    const startEntry = !givenStart ? contents.searchPathBox['search-path-placeholder'][lang] : start!.title || start!.id;
+    let endEntry = end!.title || end!.id;
     return (
       <div
         id="search-box"
@@ -110,7 +109,7 @@ class PathSearchBox extends Component<{
         <div className="input-container end-container">
           <label>{contents.searchPathBox.end[lang]}</label>
           <p
-            title={end!.name || end!.id}
+            title={end!.title || end!.id}
             className="path-search-input end-input"
             onClick={() => this.inputClickHandler(end!)}
           >

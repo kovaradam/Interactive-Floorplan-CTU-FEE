@@ -41,9 +41,9 @@ class LocationBanner extends Component<{
   };
 
   render() {
-    const { name, id, x, y, type, desc } = this.props.item;
+    const { title, id, x, y, type, desc } = this.props.item;
     const lang = this.props.lang;
-    const isPerson = name !== '' && type === undefined;
+    const isPerson = title !== '' && type === undefined;
     return (
       <div
         className="location-banner-wrapper"
@@ -52,7 +52,7 @@ class LocationBanner extends Component<{
       >
         <div className="location-banner-top-box">
           <div className="location-banner-header">
-            <h1>{name || id}</h1>
+            <h1>{title || id}</h1>
             <button className="share-button">
               <i
                 className="fa fa-share-alt share-icon"

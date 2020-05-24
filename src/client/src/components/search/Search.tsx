@@ -46,7 +46,7 @@ export class Search extends Component<
       y: room.y + 24,
       floor: room.floor,
       id: room.id,
-      name: name,
+      title: name,
       type: room.type,
       desc: room.desc? room.desc[this.props.lang] : undefined,
       building: room.building!

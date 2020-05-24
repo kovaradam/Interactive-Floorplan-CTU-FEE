@@ -249,5 +249,5 @@ export const facilities = {
 
     }
   ],
-  KN: [],
+  KN: []
 };
