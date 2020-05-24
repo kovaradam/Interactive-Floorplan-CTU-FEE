@@ -44,7 +44,6 @@ class Filters extends Component<{
       id: item.id,
       name: item.title[lang],
       type: item.type[0],
-      visible: true,
       building: item.building,
       desc: item.desc?item.desc[lang]:undefined
     });

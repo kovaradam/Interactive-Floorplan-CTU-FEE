@@ -225,7 +225,6 @@ class Map extends Component<{
                       floor: e.floor,
                       id: e.id,
                       name: e.title,
-                      visible: true,
                       desc: contents.entry[lang],
                       building: building,
                     })

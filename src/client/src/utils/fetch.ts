@@ -1,7 +1,6 @@
-export default function myFetch(url: string) {
-  return fetch("/api/" + url, {
+export default async function myFetch(url: string) {
+  const response = await fetch("/api/" + url, {
     headers: { 'Content-Type': 'application/json' }
-  }).then((response: any) => {
-    return response.json();
   });
+  return response.json();
 }

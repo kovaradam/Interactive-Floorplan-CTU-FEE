@@ -30,7 +30,6 @@ export interface MapItem {
   floor: number;
   id: string;
   name: string;
-  visible: boolean;
   building: string;
   type?: Type;
   desc?: string;
