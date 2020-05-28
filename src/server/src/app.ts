@@ -7,6 +7,7 @@ import routes from './routes/routes';
 import mongoose from 'mongoose';
 import { createTreeNodes } from './db/launch-db';
 import path from 'path';
+import helmet from 'helmet'
 
 mongoose
   .connect(config.database.connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -20,8 +21,11 @@ export default mongoose.connection;
 
 const app = express();
 
+app.use(helmet())
 app.use(json());
 app.use(cors());
+
+app.set('etag', false)
 
 const limiter = rateLimit({
   windowMs: 1 * 20 * 1000, // 20 secs

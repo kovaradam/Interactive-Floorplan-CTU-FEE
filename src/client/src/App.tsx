@@ -83,7 +83,7 @@ class App extends Component<{}, AppState> {
         const result = facilities[building].find(i => i.id === query);
         if (result) {
           item = { ...result };
-          item.name = result.title[lang];
+          item.title = result.title[lang];
           item.type = result.type[0];
           item.building = building;
           break;
