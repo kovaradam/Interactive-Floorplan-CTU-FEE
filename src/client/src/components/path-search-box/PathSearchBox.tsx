@@ -22,7 +22,7 @@ class PathSearchBox extends Component<{
   pathSearchButtonHandler = async () => {
     const { start, end } = this.props.query;
     if (start && end && start.id !== end.id) {
-      const url = `path/${start.id}/${end.id}/${this.state.accessibility}`;
+      const url = `path/?startId=${start.id}&endId=${end.id}&accessibility=${this.state.accessibility}`;
       this.props.setSearching('searching');
       myFetch(url)
         .then(result => {
@@ -36,7 +36,6 @@ class PathSearchBox extends Component<{
           }
         })
         .catch(e => {
-          // console.log(e);
           this.props.setSearching('failed-fetch');
         });
     }

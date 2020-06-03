@@ -9,6 +9,8 @@
   "author": "kovaradam1@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "helmet": "^3.22.0",
+    "@types/helmet": "0.0.47",
     "base-64": "^0.1.0",
     "body-parser": "^1.19.0",
     "core-util-is": "^1.0.2",

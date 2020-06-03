@@ -10,22 +10,21 @@ class Usermap {
     static url(username) {
         return encodeURI(`https://kosapi.fit.cvut.cz/usermap/v1/people?query=name=="${username}"`);
     }
-    static async getAccessToken() {
+    static async fetchAccessToken() {
         const url = config_1.default.usermap.tokenEndpoint;
         const credentials = base_64_1.default.encode(config_1.default.usermap.credentials);
         const headers = {
-            "Content-Type": "application/x-www-form-urlencoded",
+            'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Basic ${credentials}`
             // Scope: 'urn:ctu:oauth:umapi.read'
         };
-        const response = await node_fetch_1.default(url, {
-            method: "POST",
+        return await node_fetch_1.default(url, {
+            method: 'POST',
             headers: headers,
-            body: "grant_type=client_credentials"
+            body: 'grant_type=client_credentials'
         });
-        this.ACCESS_TOKEN = (await response.json()).access_token;
     }
 }
 exports.default = Usermap;
-Usermap.ACCESS_TOKEN = "";
+Usermap.ACCESS_TOKEN = '';
 //# sourceMappingURL=usermap-broker.js.map

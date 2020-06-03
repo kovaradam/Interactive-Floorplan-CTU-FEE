@@ -8,34 +8,41 @@ const usermap_broker_1 = __importDefault(require("../utils/usermap-broker"));
 const person_2 = require("../service/person");
 exports.getPerson = async (req, res, next) => {
     const username = req.params.username;
-    person_2.getPersonFromUsermap(username).then(r => {
-        if (r.error) {
-            usermap_broker_1.default.getAccessToken().then(exports.getPerson(req, res, next));
+    person_2.getPersonFromUsermap(username)
+        .then(async (r) => {
+        if (r.error == 'invalid_token') {
+            const response = await (await usermap_broker_1.default.fetchAccessToken()).json();
+            if (response.error === 'unauthorized') {
+                res.status(500).json({ message: 'Wrong Usermap credentials', error: 'wrongUsermapCredentials' });
+                return;
+            }
+            usermap_broker_1.default.ACCESS_TOKEN = response.access_token;
+            exports.getPerson(req, res, next);
             return;
         }
-        if (r.errno == "ENOTFOUND") {
-            res.status(500).json({ message: "No response from usermap", error: "noUsermapApiResponse" });
+        if (r.errno == 'ENOTFOUND') {
+            res.status(500).json({ message: 'No response from Usermap', error: 'noUsermapApiResponse' });
             return;
         }
         if (r.length === 0) {
-            res.status(404).json({ message: "No person found", error: "noPersonFound" });
+            res.status(404).json({ message: 'No person found', error: 'noPersonFound' });
             return;
         }
         r = r.filter((p) => p.rooms.length > 0);
         if (r.length === 0) {
-            res.status(404).json({ message: "No such person with rooms found", error: "noPersonWithRooms" });
+            res.status(404).json({ message: 'No such person with rooms found', error: 'noPersonWithRooms' });
             return;
         }
         let responsePayload = [];
         r.forEach((p) => {
             const newPerson = new person_1.default(p.fullName, p.username, p.rooms);
-            //createPerson(newPerson);
             responsePayload.push(newPerson);
         });
         res.status(200).json(responsePayload);
-    }).catch((e) => {
+    })
+        .catch((e) => {
         // console.log(e)
-        res.status(404).json({ error: "noPersonFound" });
+        res.status(500).json({ error: 'failedToConnectToUsermap' });
     });
 };
 //# sourceMappingURL=person.js.map

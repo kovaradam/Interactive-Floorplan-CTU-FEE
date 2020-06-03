@@ -12,6 +12,7 @@ const routes_1 = __importDefault(require("./routes/routes"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const launch_db_1 = require("./db/launch-db");
 const path_1 = __importDefault(require("path"));
+const helmet_1 = __importDefault(require("helmet"));
 mongoose_1.default
     .connect(config_1.default.database.connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => {
@@ -20,12 +21,13 @@ mongoose_1.default
 })
     .catch(err => console.log(err));
 exports.default = mongoose_1.default.connection;
-// createVerticals()
 const app = express_1.default();
+app.use(helmet_1.default());
 app.use(body_parser_1.json());
 app.use(cors_1.default());
+app.set('etag', false);
 const limiter = express_rate_limit_1.default({
-    windowMs: 1 * 30 * 1000,
+    windowMs: 1 * 20 * 1000,
     max: 10
 });
 app.use('/api', limiter);

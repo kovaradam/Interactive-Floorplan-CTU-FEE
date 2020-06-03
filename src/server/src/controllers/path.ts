@@ -7,15 +7,15 @@ export const getPath: RequestHandler<{
   endId: string;
   accessibility: string;
 }> = async (req, res, next) => {
-  const { startId, endId } = req.params;
-  const accessibility = req.params.accessibility === "true";
+  const { startId, endId } = req.query;
+  const accessibility = req.query.accessibility === "true";
   let start, end;
 
   try {
     start = await findNodeById(startId);
     end = await findNodeById(endId);
   } catch (e) {
-    res.status(500).json({ //400?
+    res.status(400).json({
       message: `Node ${e.id} not in database`,
       error: "nodeNotInDatabase",
     });

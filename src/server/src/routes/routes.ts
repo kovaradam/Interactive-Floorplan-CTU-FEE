@@ -7,6 +7,6 @@ const router = Router();
 
 router.get('/people/:username', getPerson);
 
-router.get('/path/:startId/:endId/:accessibility', getPath);
+router.get('/path/', getPath);
 
 export default router;

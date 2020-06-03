@@ -10,7 +10,7 @@ class TreeNode {
         this.parentId = parentId;
     }
     findNext(parentId, end) {
-        if (!this.parentId /* !== parentId*/) {
+        if (!this.parentId) {
             this.parentId = parentId;
         }
         let retIndex;

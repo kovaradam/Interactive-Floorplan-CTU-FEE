@@ -11,13 +11,5 @@ exports.treeNodeSchema = new Schema({
     children: [String],
     building: { type: String, index: true }
 });
-exports.verticalPathSchema = new Schema({
-    id: String,
-    building: String,
-    coords: { floor: Number, x: Number, y: Number },
-    type: Number,
-    floors: []
-});
 exports.TreeNodeModel = mongoose_1.default.model('TreeNode', exports.treeNodeSchema);
-exports.VerticalPathModel = mongoose_1.default.model('VerticalPath', exports.verticalPathSchema);
 //# sourceMappingURL=schemas.js.map
