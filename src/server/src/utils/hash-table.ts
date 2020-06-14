@@ -10,7 +10,7 @@ export default class NodeHashTable {
     }
   }
 
-  public insert = (node: TreeNode) => {
+  public insert = (node: TreeNode): void => {
     let idx = this.hash(node.itemId);
     const startIdx = idx;
     while (this.data[idx] !== null) {
@@ -21,7 +21,7 @@ export default class NodeHashTable {
     this.data[idx] = node;
   };
 
-  public get = (id: string) => {
+  public get = (id: string): TreeNode | null => {
     let idx = this.hash(id);
     let result = this.data[idx];
     if (result === null) throw Error(`hashMapGetElemFail`);
@@ -35,10 +35,10 @@ export default class NodeHashTable {
     return result;
   };
 
-  private hash(id: string) {
-    var hash = 0;
+  private hash(id: string): number {
+    let hash = 0;
     if (id.length == 0) return hash;
-    for (var i = 0; i < id.length; i++) {
+    for (let i = 0; i < id.length; i++) {
       hash = (hash << 5) - hash;
       hash = hash + id.charCodeAt(i);
       hash = hash & hash;
@@ -46,11 +46,11 @@ export default class NodeHashTable {
     return Math.abs(hash % this.size);
   }
 
-  get size() {
+  get size(): number {
     return this.data.length;
   }
 
-  get stats() {
+  get stats(): string {
     return `Hashmap - size: ${this.size} collisions on get: ${this.collisionCountOnGet} collisions on insert: ${this.collisionCountOnInsert}`;
   }
 }

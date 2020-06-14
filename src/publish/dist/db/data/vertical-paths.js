@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable prettier/prettier */
 const utils_1 = require("../../utils/utils");
 exports.verticalPaths = {
     T2: [

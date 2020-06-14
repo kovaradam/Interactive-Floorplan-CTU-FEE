@@ -9,7 +9,7 @@ export default class Usermap {
     return encodeURI(`https://kosapi.fit.cvut.cz/usermap/v1/people?query=name=="${username}"`);
   }
 
-  public static async fetchAccessToken() {
+  public static async fetchAccessToken(): Promise<any> {
     const url = config.usermap.tokenEndpoint;
     const credentials = base64.encode(config.usermap.credentials as string);
     const headers = {

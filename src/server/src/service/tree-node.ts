@@ -1,11 +1,27 @@
 import { TreeNodeModel } from '../db/schemas';
 import TreeNode from '../model/tree-node';
-import { buildingCode, buildings } from '../utils/utils';
+import { buildingCode, TreeCoords } from '../utils/utils';
 import HashTable from '../utils/hash-table';
 
 let loadedTree: TreeNode[] = [];
 
-export async function getFloorTree(floor: Number) {
+type dbNode = { itemId: string; coords: TreeCoords; building: buildingCode; children: string[] };
+
+function createTreeNode(n: dbNode, table: any): TreeNode {
+  return new TreeNode(
+    n.itemId,
+    {
+      floor: n.coords.floor,
+      x: n.coords.x,
+      y: n.coords.y
+    },
+    n.building,
+    n.children,
+    table
+  );
+}
+
+export async function getFloorTree(floor: number): Promise<TreeNode[]> {
   let hashTable: HashTable;
 
   if (loadedTree.length > 0) {
@@ -17,45 +33,25 @@ export async function getFloorTree(floor: Number) {
   }
   const treeNodes: TreeNode[] = [];
   return TreeNodeModel.find({ 'coords.floor': floor })
-    .then((dbNodes: any[]) => {
+    .lean()
+    .then((dbNodes: dbNode[]) => {
       hashTable = new HashTable(dbNodes.length);
       dbNodes.forEach(n => {
-        const newNode = new TreeNode(
-          n.itemId,
-          {
-            floor: n.coords.floor,
-            x: n.coords.x,
-            y: n.coords.y
-          },
-          n.building
-        );
+        const newNode = createTreeNode(n, hashTable);
         treeNodes.push(newNode);
         hashTable.insert(newNode);
       });
-      
-      for (let i = 0; i < treeNodes.length; i++) {
-        dbNodes[i].children.forEach((childId: string) => {
-          treeNodes[i].addChild(hashTable.get(childId)!);
-        });
-      }
+
       loadedTree = treeNodes;
-      // console.log(hashTable.stats)
       return treeNodes;
     });
 }
 
-export async function findNodeById(id: string) {
+export async function findNodeById(id: string): Promise<TreeNode> {
   return TreeNodeModel.findOne({ itemId: id }, '')
-    .then((n: any) => {
-      return new TreeNode(
-        n.itemId,
-        {
-          floor: n.coords.floor,
-          x: n.coords.x,
-          y: n.coords.y
-        },
-        n.building
-      );
+    .lean()
+    .then((n: dbNode) => {
+      return createTreeNode(n as dbNode, null);
     })
     .catch((e: any) => {
       e.id = id;
@@ -63,10 +59,10 @@ export async function findNodeById(id: string) {
     });
 }
 
-export async function getAdjEntryOfBuilding(from: buildingCode) {
+export async function getAdjEntryOfBuilding(from: buildingCode): Promise<TreeNode> {
   return findNodeById(`entry${from}`);
 }
 
-export async function getTreeNodeCount() {
+export async function getTreeNodeCount(): Promise<number> {
   return TreeNodeModel.count({});
 }

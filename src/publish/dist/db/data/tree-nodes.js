@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable prettier/prettier */
 // private readonly _itemId: string,
 // private readonly _coords: TreeCoords,
 // private _children: [TreeNode, boolean][] = [],

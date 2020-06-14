@@ -5,9 +5,9 @@ import rateLimit from 'express-rate-limit';
 import config from './config/config';
 import routes from './routes/routes';
 import mongoose from 'mongoose';
-import { createTreeNodes } from './db/launch-db';
+import { createTreeNodes } from './db/db-utils';
 import path from 'path';
-import helmet from 'helmet'
+import helmet from 'helmet';
 
 mongoose
   .connect(config.database.connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -21,11 +21,11 @@ export default mongoose.connection;
 
 const app = express();
 
-app.use(helmet())
+app.use(helmet());
 app.use(json());
 app.use(cors());
 
-app.set('etag', false)
+app.set('etag', false);
 
 const limiter = rateLimit({
   windowMs: 1 * 20 * 1000, // 20 secs
@@ -45,5 +45,4 @@ app.use(express.static(path.join(__dirname, '..', 'build')));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
-
 app.listen(config.server.port);

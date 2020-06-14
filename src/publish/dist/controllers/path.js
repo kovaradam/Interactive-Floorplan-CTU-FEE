@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_node_1 = require("../service/tree-node");
-const path_search_1 = require("../path-search");
-exports.getPath = async (req, res, next) => {
+const path_search_1 = require("../path-search/path-search");
+exports.getPath = async (req, res, _) => {
     const { startId, endId } = req.query;
-    const accessibility = req.query.accessibility === "true";
+    const accessibility = req.query.accessibility === 'true';
     let start, end;
     try {
         start = await tree_node_1.findNodeById(startId);
@@ -13,7 +13,7 @@ exports.getPath = async (req, res, next) => {
     catch (e) {
         res.status(400).json({
             message: `Node ${e.id} not in database`,
-            error: "nodeNotInDatabase",
+            error: 'nodeNotInDatabase'
         });
         return;
     }
@@ -22,7 +22,7 @@ exports.getPath = async (req, res, next) => {
         res.status(200).json(paths);
     }
     catch (e) {
-        res.status(500).json({ message: "Could not find path", error: e.message });
+        res.status(500).json({ message: 'Could not find path', error: e.message });
     }
 };
 //# sourceMappingURL=path.js.map

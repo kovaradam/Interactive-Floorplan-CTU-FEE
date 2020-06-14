@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 // private readonly _itemId: string,
 // private readonly _coords: TreeCoords,
 // private _children: [TreeNode, boolean][] = [],
 // private _parentId?: string
-export let treeNodes:{[key:string]:[string, [number, number, number], string[]][]} = {
+export const treeNodes:{[key:string]:[string, [number, number, number], string[]][]} = {
     T2:[
     ['cloakroom', [-1.1, 422, 265], ['node4.5_4_-1','node3.5_4_-1']],
     ['bike-stand', [-1.1, 445, 270], ['node3.5_4_-1']],

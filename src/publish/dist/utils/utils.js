@@ -18,14 +18,10 @@ exports.floorNums = {
 };
 exports.buildings = {
     T2: {
-        adjacent: [
-            { building: 'H', entry: 'entryH' }
-        ]
+        adjacent: [{ building: 'H', entry: 'entryH' }]
     },
     H: {
-        adjacent: [
-            { building: 'T2', entry: 'entryT2' }
-        ]
-    },
+        adjacent: [{ building: 'T2', entry: 'entryT2' }]
+    }
 };
 //# sourceMappingURL=utils.js.map

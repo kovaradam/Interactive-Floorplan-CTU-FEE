@@ -1,4 +1,5 @@
-import {Type, floorNums} from '../../utils/utils'
+/* eslint-disable prettier/prettier */
+import { Type, floorNums } from '../../utils/utils';
 
 export const verticalPaths: {[key:string]:[string, string,[number, number, number], number, number[]][]} = {
  T2:[

@@ -37,10 +37,10 @@ class NodeHashTable {
         }
     }
     hash(id) {
-        var hash = 0;
+        let hash = 0;
         if (id.length == 0)
             return hash;
-        for (var i = 0; i < id.length; i++) {
+        for (let i = 0; i < id.length; i++) {
             hash = (hash << 5) - hash;
             hash = hash + id.charCodeAt(i);
             hash = hash & hash;

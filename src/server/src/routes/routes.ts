@@ -1,7 +1,7 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { getPerson} from '../controllers/person'
-import { getPath } from '../controllers/path'
+import { getPerson } from '../controllers/person';
+import { getPath } from '../controllers/path';
 
 const router = Router();
 

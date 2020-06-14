@@ -26,7 +26,7 @@ function findVerticals(startCoords, endCoords, accessibility = false, building) 
         reachedFloor = findNearestCommonReachedFloor(startCoords.floor, endCoords.floor, building, accessibility);
     }
     while (reachedFloor !== startCoords.floor) {
-        let vertical = findCheapestVertical(midFloorCoords, { x: endCoords.x, y: endCoords.y, floor: reachedFloor }, accessibility, building);
+        const vertical = findCheapestVertical(midFloorCoords, { x: endCoords.x, y: endCoords.y, floor: reachedFloor }, accessibility, building);
         if (vertical) {
             ret.push([vertical, midFloorCoords.floor, reachedFloor]);
             if (reachedFloor === endCoords.floor) {
@@ -48,7 +48,7 @@ function findVerticals(startCoords, endCoords, accessibility = false, building) 
 }
 exports.findVerticals = findVerticals;
 function findCheapestVertical(startCoords, endCoords, accessibility, building) {
-    let paths = verticals[building].filter(v => v.floors.findIndex((f) => f === endCoords.floor) !== -1 &&
+    const paths = verticals[building].filter(v => v.floors.findIndex((f) => f === endCoords.floor) !== -1 &&
         v.floors.findIndex((f) => f === startCoords.floor) !== -1 &&
         (accessibility ? isAccessible(v.type) === accessibility : true));
     if (paths.length > 0) {
@@ -84,7 +84,7 @@ function findNearestCommonReachedFloor(startFloor, endFloor, building, accessibi
     return reachedFloor;
 }
 function doesFloorReach(building, accessibility, floor, ...endFloors) {
-    const verts = verticals[building].filter(v => accessibility ? isAccessible(v.type) : true);
+    const verts = verticals[building].filter(v => (accessibility ? isAccessible(v.type) : true));
     for (let i = 0; i < verts.length; i++) {
         const p = verts[i];
         if (floorInRange(p.floors, floor)) {

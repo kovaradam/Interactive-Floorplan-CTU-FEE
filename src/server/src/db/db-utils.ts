@@ -2,19 +2,19 @@ import { TreeNodeModel } from './schemas';
 import { treeNodes } from './data/tree-nodes';
 import connection from '../app';
 
-function dropCollection(collection: string) {
-  connection.dropCollection(collection, function (err: any) {
+function dropCollection(collection: string): void {
+  connection.dropCollection(collection, () => {
     console.log(`${collection} dropped`);
   });
 }
 
-export async function createTreeNodes() {
+export async function createTreeNodes(): Promise<any> {
   const dbNodeCount = await TreeNodeModel.countDocuments({});
   let localNodeCount = 0;
   for (const building in treeNodes) {
     localNodeCount += treeNodes[building].length;
   }
-  if (dbNodeCount < localNodeCount) {
+  if (dbNodeCount !== localNodeCount) {
     dropCollection('treenodes');
     for (const building in treeNodes) {
       treeNodes[building].forEach((d: any) => {
@@ -27,6 +27,7 @@ export async function createTreeNodes() {
         instance.save();
       });
     }
+    console.log('treenodes created');
   }
   for (const building in treeNodes) {
     delete treeNodes[building];

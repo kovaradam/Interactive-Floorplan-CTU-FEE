@@ -7,7 +7,7 @@ const usermap_broker_1 = __importDefault(require("../utils/usermap-broker"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
 async function getPersonFromUsermap(query) {
     const response = await node_fetch_1.default(usermap_broker_1.default.url(query), {
-        method: "GET",
+        method: 'GET',
         headers: {
             Authorization: `Bearer ${usermap_broker_1.default.ACCESS_TOKEN}`
         }

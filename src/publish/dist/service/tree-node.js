@@ -7,6 +7,13 @@ const schemas_1 = require("../db/schemas");
 const tree_node_1 = __importDefault(require("../model/tree-node"));
 const hash_table_1 = __importDefault(require("../utils/hash-table"));
 let loadedTree = [];
+function createTreeNode(n, table) {
+    return new tree_node_1.default(n.itemId, {
+        floor: n.coords.floor,
+        x: n.coords.x,
+        y: n.coords.y
+    }, n.building, n.children, table);
+}
 async function getFloorTree(floor) {
     let hashTable;
     if (loadedTree.length > 0) {
@@ -19,36 +26,24 @@ async function getFloorTree(floor) {
     }
     const treeNodes = [];
     return schemas_1.TreeNodeModel.find({ 'coords.floor': floor })
+        .lean()
         .then((dbNodes) => {
         hashTable = new hash_table_1.default(dbNodes.length);
         dbNodes.forEach(n => {
-            const newNode = new tree_node_1.default(n.itemId, {
-                floor: n.coords.floor,
-                x: n.coords.x,
-                y: n.coords.y
-            }, n.building);
+            const newNode = createTreeNode(n, hashTable);
             treeNodes.push(newNode);
             hashTable.insert(newNode);
         });
-        for (let i = 0; i < treeNodes.length; i++) {
-            dbNodes[i].children.forEach((childId) => {
-                treeNodes[i].addChild(hashTable.get(childId));
-            });
-        }
         loadedTree = treeNodes;
-        // console.log(hashTable.stats)
         return treeNodes;
     });
 }
 exports.getFloorTree = getFloorTree;
 async function findNodeById(id) {
     return schemas_1.TreeNodeModel.findOne({ itemId: id }, '')
+        .lean()
         .then((n) => {
-        return new tree_node_1.default(n.itemId, {
-            floor: n.coords.floor,
-            x: n.coords.x,
-            y: n.coords.y
-        }, n.building);
+        return createTreeNode(n, null);
     })
         .catch((e) => {
         e.id = id;

@@ -1,14 +1,14 @@
-import { RequestHandler } from "express";
-import { findNodeById } from "../service/tree-node";
-import { findPath } from "../path-search";
+import { RequestHandler } from 'express';
+import { findNodeById } from '../service/tree-node';
+import { findPath } from '../path-search/path-search';
 
 export const getPath: RequestHandler<{
   startId: string;
   endId: string;
   accessibility: string;
-}> = async (req, res, next) => {
+}> = async (req, res, _) => {
   const { startId, endId } = req.query;
-  const accessibility = req.query.accessibility === "true";
+  const accessibility = req.query.accessibility === 'true';
   let start, end;
 
   try {
@@ -17,7 +17,7 @@ export const getPath: RequestHandler<{
   } catch (e) {
     res.status(400).json({
       message: `Node ${e.id} not in database`,
-      error: "nodeNotInDatabase",
+      error: 'nodeNotInDatabase'
     });
     return;
   }
@@ -25,6 +25,6 @@ export const getPath: RequestHandler<{
     const paths = await findPath(start, end, accessibility);
     res.status(200).json(paths);
   } catch (e) {
-    res.status(500).json({ message: "Could not find path", error: e.message });
+    res.status(500).json({ message: 'Could not find path', error: e.message });
   }
 };

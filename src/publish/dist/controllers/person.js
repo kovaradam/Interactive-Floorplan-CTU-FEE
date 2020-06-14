@@ -33,14 +33,14 @@ exports.getPerson = async (req, res, next) => {
             res.status(404).json({ message: 'No such person with rooms found', error: 'noPersonWithRooms' });
             return;
         }
-        let responsePayload = [];
+        const responsePayload = [];
         r.forEach((p) => {
             const newPerson = new person_1.default(p.fullName, p.username, p.rooms);
             responsePayload.push(newPerson);
         });
         res.status(200).json(responsePayload);
     })
-        .catch((e) => {
+        .catch(() => {
         // console.log(e)
         res.status(500).json({ error: 'failedToConnectToUsermap' });
     });

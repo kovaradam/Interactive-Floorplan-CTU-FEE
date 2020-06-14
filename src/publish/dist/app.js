@@ -10,14 +10,14 @@ const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const config_1 = __importDefault(require("./config/config"));
 const routes_1 = __importDefault(require("./routes/routes"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const launch_db_1 = require("./db/launch-db");
+const db_utils_1 = require("./db/db-utils");
 const path_1 = __importDefault(require("path"));
 const helmet_1 = __importDefault(require("helmet"));
 mongoose_1.default
     .connect(config_1.default.database.connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => {
     console.log('Database connected');
-    launch_db_1.createTreeNodes();
+    db_utils_1.createTreeNodes();
 })
     .catch(err => console.log(err));
 exports.default = mongoose_1.default.connection;

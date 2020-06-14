@@ -35,7 +35,7 @@ export const getPerson: RequestHandler<{ username: string }> = async (req, res, 
         return;
       }
 
-      let responsePayload: Person[] = [];
+      const responsePayload: Person[] = [];
       r.forEach((p: Person) => {
         const newPerson = new Person(p.fullName, p.username, p.rooms);
         responsePayload.push(newPerson);
@@ -43,7 +43,7 @@ export const getPerson: RequestHandler<{ username: string }> = async (req, res, 
 
       res.status(200).json(responsePayload!);
     })
-    .catch((e: any) => {
+    .catch(() => {
       // console.log(e)
       res.status(500).json({ error: 'failedToConnectToUsermap' });
     });

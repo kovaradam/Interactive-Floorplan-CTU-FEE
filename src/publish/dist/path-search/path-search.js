@@ -29,10 +29,10 @@ async function getPathInBuilding(start, end, accessibility = false) {
 }
 async function AStar(startId, endId, floor) {
     const treeNodes = await tree_node_1.getFloorTree(floor);
-    let startNode = treeNodes.find((n) => n.id == startId);
-    let endNode = treeNodes.find((n) => n.id == endId);
-    let ret = [];
-    let visited = [];
+    const startNode = treeNodes.find((n) => n.id == startId);
+    const endNode = treeNodes.find((n) => n.id == endId);
+    const ret = [];
+    const visited = [];
     let pathComplete = false;
     let next = startNode.findNext(startNode.id, endNode);
     visited.push(startNode);
@@ -53,10 +53,9 @@ async function AStar(startId, endId, floor) {
         else {
             ret.pop();
             if (ret.length === 0) {
-                if (startNode.children.filter((c) => c[1] == false).length == 0) {
-                    visited.forEach((node) => node.setChildrenUnvisited());
-                    // console.log(`Path search fail from ${startId} to ${endId} in Astar`);
-                    throw Error("AStarFail");
+                if (startNode.children.filter(c => c[1] == false).length == 0) {
+                    visited.forEach(node => node.setChildrenUnvisited());
+                    throw Error('AStarFail');
                 }
                 else {
                     next = startNode.findNext(startNode.id, endNode);
@@ -67,29 +66,27 @@ async function AStar(startId, endId, floor) {
             }
         }
     }
-    visited.forEach((node) => node.setChildrenUnvisited());
-    // return [startNode!,...ret, endNode!];
-    const path = new floor_path_1.default(startId, endId, startNode.building, startNode.coords.floor, [startNode, ...ret, endNode]);
-    return path;
+    visited.forEach(node => node.setChildrenUnvisited());
+    return new floor_path_1.default(startId, endId, startNode.building, startNode.coords.floor, [startNode, ...ret, endNode]);
 }
 exports.default = AStar;
 async function getSubPaths(start, end, accessibility = false) {
     const verticals = vertical_search_1.findVerticals(start.coords, end.coords, accessibility, start.building);
     if (!verticals)
         throw Error(`verticalNotFound`);
-    let paths = [];
-    await AStar(start.id, verticals[0][0].id + "_" + verticals[0][1], verticals[0][1]).then(async (path) => {
+    const paths = [];
+    await AStar(start.id, verticals[0][0].id + '_' + verticals[0][1], verticals[0][1]).then(async (path) => {
         paths.push(path);
     });
     let i = 0;
     for (; i < verticals.length - 1; i++) {
-        let from = verticals[i][0].id + "_" + verticals[i][2];
-        let to = verticals[i + 1][0].id + "_" + verticals[i + 1][1];
+        const from = verticals[i][0].id + '_' + verticals[i][2];
+        const to = verticals[i + 1][0].id + '_' + verticals[i + 1][1];
         await AStar(from, to, verticals[i][2]).then(async (path) => {
             paths.push(path);
         });
     }
-    return AStar(verticals[i][0].id + "_" + verticals[i][2], end.id, verticals[i][2]).then(async (path) => {
+    return AStar(verticals[i][0].id + '_' + verticals[i][2], end.id, verticals[i][2]).then(async (path) => {
         paths.push(path);
         return paths;
     });
@@ -110,6 +107,6 @@ async function getPathsBetweenBuildings(start, end, accessibility) {
     return ret;
 }
 function areBuildingsAdjacent(a, b) {
-    return (utils_1.buildings[a].adjacent.find(adj => adj.building === b)) !== null;
+    return utils_1.buildings[a].adjacent.find(adj => adj.building === b) !== null;
 }
 //# sourceMappingURL=path-search.js.map

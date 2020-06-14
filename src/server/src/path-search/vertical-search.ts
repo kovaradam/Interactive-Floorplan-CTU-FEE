@@ -17,7 +17,7 @@ export function findVerticals(
   endCoords: TreeCoords,
   accessibility = false,
   building: buildingCode
-) {
+): [VerticalPath, number, number][] | null {
   const ret: [VerticalPath, number, number][] = [];
   let midFloorCoords = { ...startCoords };
   let reachedFloor = endCoords.floor;
@@ -33,7 +33,7 @@ export function findVerticals(
     reachedFloor = findNearestCommonReachedFloor(startCoords.floor, endCoords.floor, building, accessibility);
   }
   while (reachedFloor !== startCoords.floor) {
-    let vertical = findCheapestVertical(
+    const vertical = findCheapestVertical(
       midFloorCoords,
       { x: endCoords.x, y: endCoords.y, floor: reachedFloor },
       accessibility,
@@ -65,8 +65,7 @@ export function findCheapestVertical(
   accessibility: boolean,
   building: buildingCode
 ): VerticalPath | null {
-
-  let paths = verticals[building].filter(
+  const paths = verticals[building].filter(
     v =>
       v.floors.findIndex((f: number) => f === endCoords.floor) !== -1 &&
       v.floors.findIndex((f: number) => f === startCoords.floor) !== -1 &&
@@ -90,7 +89,12 @@ export function findCheapestVertical(
   }
 }
 
-function findNearestCommonReachedFloor(startFloor: number, endFloor: number, building: buildingCode, accessibility: boolean) {
+function findNearestCommonReachedFloor(
+  startFloor: number,
+  endFloor: number,
+  building: buildingCode,
+  accessibility: boolean
+): number {
   let reachedFloor = startFloor;
   let minDist = Number.MAX_VALUE;
   floorNums[building].forEach(n => {
@@ -105,8 +109,13 @@ function findNearestCommonReachedFloor(startFloor: number, endFloor: number, bui
   return reachedFloor;
 }
 
-function doesFloorReach(building: buildingCode, accessibility:boolean, floor: number, ...endFloors: number[]) {
-  const verts = verticals[building].filter(v => accessibility ? isAccessible(v.type) : true)
+function doesFloorReach(
+  building: buildingCode,
+  accessibility: boolean,
+  floor: number,
+  ...endFloors: number[]
+): boolean {
+  const verts = verticals[building].filter(v => (accessibility ? isAccessible(v.type) : true));
   for (let i = 0; i < verts.length; i++) {
     const p = verts[i];
     if (floorInRange(p.floors, floor)) {
@@ -122,13 +131,13 @@ function doesFloorReach(building: buildingCode, accessibility:boolean, floor: nu
   return false;
 }
 
-function floorInRange(range: number[], floor: number) {
+function floorInRange(range: number[], floor: number): boolean {
   return range.findIndex(n => n === floor) !== -1;
 }
 
-function getCostOfVertical(dist: number, type: VerticalType) {
+function getCostOfVertical(dist: number, type: VerticalType): number {
   if (type === Type.STAIR) {
-    return Math.pow(dist*0.7, 2);
+    return Math.pow(dist * 0.7, 2);
   } else if (type === Type.ELEVATOR) {
     return 25 / dist;
   } else {
@@ -136,8 +145,7 @@ function getCostOfVertical(dist: number, type: VerticalType) {
   }
 }
 
-function isAccessible(type: VerticalType) {
+function isAccessible(type: VerticalType): boolean {
   if (type == Type.ELEVATOR) return true;
   return false;
 }
-
