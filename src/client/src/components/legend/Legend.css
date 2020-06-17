@@ -2,16 +2,15 @@
   position: relative;
   width: 100%;
   display: flex;
-  padding-top: 20px;
   padding-left: 2px;
   align-content: space-around;
   pointer-events: none;
   flex-direction: column;
 }
 
-.legend-item {
+.legend-wrapper p{
   text-align: left;
-  margin-top: 10px;
+  margin: 10px 0 0px 0;
 }
 
 .legend-icon {
@@ -39,15 +38,3 @@
   background-color: rgb(170, 196, 243);
 }
 
-@media only screen and (max-width: 768px) {
-  .legend-item {
-    font-size: 4vw;
-    margin-top: 1vh;
-  }
-}
-
-@media only screen and (max-width: 768px) and (orientation: landscape) { 
-  .legend-item {
-    font-size: 3vw;
-  }
-}

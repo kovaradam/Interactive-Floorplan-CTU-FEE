@@ -274,7 +274,7 @@ export default {
         },
         {
           id: 'T2:B2-39b',
-          points: '169,18 169,34 202,34 202,18',
+          points: '169,18 169,34 202,34 202,18 220,18',
           x: 224,
           y: 35,
           type: Type.TUTORIAL,

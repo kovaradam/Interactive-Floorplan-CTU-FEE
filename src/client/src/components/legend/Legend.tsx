@@ -8,7 +8,7 @@ type props = { lang: Language };
 const Legend = ({ lang }: props) => {
   return (
     <section className="legend-wrapper">
-      <div className="legend-item">
+      <p>
         {contents.types[Type.ELEVATOR][lang]}
         <img
           className="legend-icon verts"
@@ -17,8 +17,8 @@ const Legend = ({ lang }: props) => {
           height="30"
           width="30"
         ></img>
-      </div>
-      <div className="legend-item">
+      </p>
+      <p>
         {contents.types[Type.PATER][lang]}
         <img
           className="legend-icon verts"
@@ -27,20 +27,20 @@ const Legend = ({ lang }: props) => {
           height="30"
           width="30"
         ></img>
-      </div>
+      </p>
 
-      <div className="legend-item">
+      <p>
         {contents.legend.offices[lang]}
-        <div className="legend-icon offices"></div>
-      </div>
-      <div className="legend-item">
+        <span className="legend-icon offices"></span>
+      </p>
+      <p>
         {contents.legend.services[lang]}
-        <div className="legend-icon services"></div>
-      </div>
-      <div className="legend-item">
+        <span className="legend-icon services"></span>
+      </p>
+      <p>
         {contents.legend.classrooms[lang]}
-        <div className="legend-icon classrooms"></div>
-      </div>
+        <span className="legend-icon classrooms"></span>
+      </p>
     </section>
   );
 };

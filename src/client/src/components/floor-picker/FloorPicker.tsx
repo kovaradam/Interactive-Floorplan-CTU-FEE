@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import './FloorSlider.css';
+import './FloorPicker.css';
 import { Vertical } from '../../utils/interfaces';
 import { enterKeyPress, getFloorString, Language } from '../../utils/utils';
 import onClickOutside from 'react-onclickoutside';
 
-class FloorSlider extends Component<{
+class FloorPicker extends Component<{
   current: number;
   from: number;
   to: number;
@@ -45,13 +45,13 @@ class FloorSlider extends Component<{
     const inBanner = this.props.item !== null;
     return (
       <div
-        className={`slider-wrapper ${inBanner && 'in-banner-wrapper'}`}
+        className={`picker-wrapper ${inBanner && 'in-banner-wrapper'}`}
         onWheel={e => {
           this.wheelHandler(-e.deltaY);
         }}
       >
         <FontAwesome
-          className={`${inBanner ? 'slider-left' : 'slider-up'} slider-arrow`}
+          className={`${inBanner ? 'picker-left' : 'picker-up'} picker-arrow`}
           name={`angle-${inBanner ? 'left' : 'up'}`}
           size="2x"
           onClick={e => {
@@ -62,10 +62,10 @@ class FloorSlider extends Component<{
           onKeyPress={e => enterKeyPress(e, () => this.wheelHandler(1))}
         />
 
-        <ul className={`${!inBanner ? 'slider-list' : 'in-banner-list'}`}>
+        <ul className={`${!inBanner ? 'picker-list' : 'in-banner-list'}`}>
           {this.getFloorNumbers().map(item => (
             <li
-              className={`slider-list-item dist-${Math.abs(floor - item)} ${this.floorInRange(item) ? 'vis' : 'unvis'} ${
+              className={`picker-list-item dist-${Math.abs(floor - item)} ${this.floorInRange(item) ? 'vis' : 'unvis'} ${
                 floor === item ? 'current' : 'other'
               } ${inBanner && 'in-banner-item'}`}
               key={item}
@@ -79,7 +79,7 @@ class FloorSlider extends Component<{
         </ul>
             <p id="floor-title">{getFloorString(floor)[lang]}</p>
         <FontAwesome
-          className={`${inBanner ? 'slider-right' : 'slider-down'} slider-arrow`}
+          className={`${inBanner ? 'picker-right' : 'picker-down'} picker-arrow`}
           name={`angle-${inBanner ? 'right' : 'down'}`}
           size="2x"
           onClick={e => {
@@ -94,4 +94,4 @@ class FloorSlider extends Component<{
   }
 }
 
-export default onClickOutside(FloorSlider);
+export default onClickOutside(FloorPicker);

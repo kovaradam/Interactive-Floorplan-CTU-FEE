@@ -11,13 +11,14 @@
   outline: none;
 }
 
-.background {
-  position: absolute;
-  left: 15px;
-  z-index: -1;
-  top: 206px;
-  width: 825px;
-  /* opacity:0.2; */
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 header h1 {
@@ -36,11 +37,7 @@ header h1:hover {
   float: left;
   border-style: solid;
   border-color: rgb(189, 186, 186);
-  border-width: 1px;
-  border-top: none;
-  border-bottom: none;
-  border-right: none;
-  width: 0;
+  border-width: 0 0 0 1px;
   height: 650px;
   box-shadow: -3px 0px 6px 0px rgba(0, 0, 0, 0.3);
 }
@@ -54,7 +51,7 @@ header h1:hover {
   height: 524px;
   z-index: 4;
   background-color: rgba(253, 253, 253, 0.4);
-  animation: dimmer-fade 100ms;
+  animation: dimmer-fade 200ms;
 }
 
 @keyframes dimmer-fade{
@@ -64,7 +61,6 @@ header h1:hover {
 
 .dimmer div{
   margin:auto;
-  /* margin-top: 20px; */
   font-size: 25px;
   padding: 0;
   display: flex;
@@ -120,7 +116,6 @@ header h1:hover {
 }
 
 .slow-spin {
-  -webkit-animation: fa-spin 6s infinite linear;
   animation: fa-spin 6s infinite linear;
 }
 
@@ -178,7 +173,7 @@ header h1:hover {
   transition-timing-function: ease-in-out;
 }
 
-#filters-button, #floor-slider-button {
+#filters-button, #floor-picker-button {
   display: none;
 }
 
@@ -205,18 +200,22 @@ header h1:hover {
     display: none;
   }
 
-  #floor-slider-button{
-    bottom:18vw;
+  #floor-picker-button{
+    /* bottom:18vw; */
     width: 15vw;
-    height: 17vw;
-    margin:3vw;
+    height: 15vw;
+    margin: 4vw;
     font-size: 10vw;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
+    top: 40vw;
+    left: auto;
+    right: 0;
   }
   
+
   .dimmer {
     position: absolute;
     display: flex;
@@ -236,7 +235,7 @@ header h1:hover {
     border-radius: 5vw;
     z-index: 5;
     border-style: hidden;
-    background-color: rgba(190, 176, 176, 0.651);
+    background-color: rgba(109, 107, 107, 0.407);
     box-shadow: 0px 1px 10px -2px rgba(0, 0, 0, 0.5);
     color: white;
     justify-content: center;
@@ -248,14 +247,12 @@ header h1:hover {
     transform: scale(1.2);
   }
   #filters-button {
-    
     width: 17vw;
     height: 17vw;
     font-size: 11vw;
     margin: 3vw;
-    top: 18vw;
+    top: 19vw;
     right: 0;
-    
   }
 
 }
@@ -269,7 +266,7 @@ header h1:hover {
     top:0;
     margin: 3vw;
   }
-  #floor-slider-button{
+  #floor-picker-button{
     width:8vw;
     height:10vw;
     font-size: 5vw;

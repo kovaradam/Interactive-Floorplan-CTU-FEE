@@ -2,7 +2,7 @@
   white-space: nowrap;
   position: absolute;
   color: gray;
-  font-size: 20px;
+  font-size: 1.3em;
   z-index: 4;
   top: 201px;
   left: 460px;
@@ -11,7 +11,6 @@
   transition: 0.5s;
   opacity: 0;
   visibility: hidden;
-  /* background-color: rgba(255, 255, 255, 0.801); */
 }
 
 .error {
@@ -39,10 +38,10 @@
   visibility: visible;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 48em) {
   .message-box-wrapper {
     position: fixed;
-    font-size: 5vw;
+    font-size: 1.1em;
     top: 17vw;
     left: 38vw;
     width: min-content;
@@ -57,7 +56,7 @@
     
   }
 }
-@media only screen and (max-width: 768px) and (orientation:portrait){
+@media only screen and (max-width: 48em) and (orientation:portrait){
   .message-box-contents {
     padding-left: 4vw;
     max-width: 76vw;
@@ -65,10 +64,10 @@
   }
 }
 
-@media only screen and (max-width: 768px) and (orientation:landscape){
+@media only screen and (max-width: 48em) and (orientation:landscape){
   
   .message-box-wrapper {
-    font-size: 3vw;
+    font-size: 1.2em;
     top:12vw;
     left:50vw;
     width: min-content;    

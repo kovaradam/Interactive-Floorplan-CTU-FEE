@@ -4,22 +4,19 @@
   padding-top: 20px;
   padding-bottom: 5px;
   width: 69%;
-  /* margin: auto; */
   overflow: hidden;
   z-index: 6;
 }
 
 .search-bar {
   border-style: none;
-  /* border-color: grey; */
   margin: auto;
   float: left;
   height: 38px;
   width: 416px;
-  font-size: 20px;
+  font-size: 1.3em;
   padding-top: 4px;
   padding-left: 8px;
-  /* margin-left: 10px; */
 }
 
 .search-bar-wrapper {
@@ -46,23 +43,21 @@
 
 .search-list-item {
   float: auto;
-  padding: 5px;
-  transition: background-color 0.5s;
+  padding: 8px 5px 8px 5px;
+  transition: background-color 0.3s;
   transition-timing-function: ease;
   text-align: left;
 }
 
 .search-list-item:hover {
-  /* color: white; */
   background-color: rgba(204, 204, 204, 0.479);
-  /* background-color: rgb(190, 176, 176); */
   cursor: pointer;
 }
 
 .search-list-item h1 {
   font-weight: 500;
   text-align: left;
-  font-size: 15px;
+  font-size: 1em;
   padding-left: 5px;
   margin: 0px;
   width: 70%;
@@ -71,7 +66,7 @@
 .search-list-item h2 {
   float: right;
   text-align: right;
-  font-size: 10px;
+  font-size: 0.7em;
   font-weight: normal;
   padding-right: 5px;
   padding-top: 5px;
@@ -82,7 +77,7 @@
 
 ::placeholder {
   color: rgb(214, 214, 226);
-  font-size: 20px;
+  font-size: 0.9em;
 }
 
 .SearchButton {
@@ -94,7 +89,7 @@
   text-align: center;
   text-decoration: none;
   /* display: inline-block; */
-  font-size: 16px;
+  font-size: 1em;
   float: left;
   height: 45px;
   width: 57px;
@@ -115,7 +110,7 @@
   white-space: nowrap;
   position: absolute;
   color: gray;
-  font-size: 20px;
+  font-size: 1.3em;
   z-index: 4;
   top: 201px;
   left: 350px;
@@ -165,7 +160,7 @@
   visibility: visible;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 48em) {
   .dd-wrapper {
     display: none;
   }
@@ -191,13 +186,11 @@
     min-height: 15vw;
     box-shadow: 0px 1px 10px -2px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
-    /* display: flex; */
     justify-content: space-between;
   }
 
   ::placeholder {
-    /* padding-top: 10px; */
-    font-size: 4vw;
+    font-size: 0.7em;
   }
 
   .SearchButton {
@@ -205,7 +198,7 @@
     /* width: 8vh; */
     height: 15vw;
     color: white;
-    font-size: 32px;
+    font-size: 2em;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -225,7 +218,7 @@
   }
 
   .search-list-item h1 {
-    font-size: 4.5vw;
+    font-size: 1em;
   }
 
   .search-bar {
@@ -238,7 +231,7 @@
   }
 }
 
-@media only screen and (max-width: 768px) and (orientation:landscape){
+@media only screen and (max-width: 48em) and (orientation:landscape){
   .Search{
     width: 77vw;
   }
@@ -247,16 +240,12 @@
     min-height: 8vw;
   }
 
-  .search-list-item h1 {
-    font-size: 2.5vw;
-  }
-
   .SearchButton{
     height: 8vw;
   }
 
   ::placeholder{
-    font-size: 3vw;
+    font-size: 0.9em;
   }
   
   .search-bar {

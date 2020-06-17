@@ -3,7 +3,7 @@ import { Vertical } from '../../utils/interfaces';
 import contents from '../../data/text-content';
 import { Language } from '../../utils/utils';
 import onClickOutside from 'react-onclickoutside';
-import FloorSlider from '../floor-slider/FloorSlider';
+import FloorPicker from '../floor-picker/FloorPicker';
 
 class VerticalBanner extends Component<{
   item: Vertical;
@@ -24,7 +24,7 @@ class VerticalBanner extends Component<{
       <div className="location-banner-wrapper " style={{ top: y + 90, left: x + 70 }}>
         <div className="location-banner-top-box ">
           <h1 className="location-banner-header vertical-header">{contents.types[type][lang]}</h1>
-          <FloorSlider
+          <FloorPicker
             current={floor}
             from={from}
             to={to}

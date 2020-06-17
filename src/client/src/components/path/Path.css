@@ -5,19 +5,19 @@ polyline{
 }
 
 .path {
-  /* stroke: rgba(255, 184, 184, 0.6); */
   stroke: rgba(255, 184, 184, 0.4);
 }
 
 .path-current {
-  /* stroke: rgba(255, 124, 124, 0.6); */
   stroke: rgba(255, 124, 124, 0.6);
 }
 
 .path:hover {
   cursor: pointer;
+  stroke-width: 6px;
 }
 
 .path-current:hover {
+  stroke-width: 5px;
   cursor: default;
 }

@@ -6,7 +6,7 @@
   height: min-content;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 48em) {
   .map {
     transform: scale(1) !important;
     transform: translate(0%, 0%) !important;
@@ -15,6 +15,11 @@
 
 .room {
   transition: all 200ms;
+}
+
+@keyframes item-show{
+  0%{opacity:0}
+  100%{opacity:1}
 }
 
 .classroom {
@@ -36,7 +41,6 @@
 }
 .facility:hover {
   fill: rgb(250, 252, 238);
-  /* fill:rgb(247, 238, 238); */
 }
 
 .dept-label {
@@ -44,17 +48,14 @@
   margin: 0;
   position: absolute;
   font-weight: 300;
-  color: rgb(176, 176, 255);
   color: rgb(67, 67, 68);
   pointer-events: none;
+  animation: item-show 200ms;
 }
 
+text,
 .classroom:hover,
 .facility:hover {
-  cursor: pointer;
-}
-
-text {
   cursor: pointer;
 }
 
@@ -133,7 +134,11 @@ text {
   display: none;
 }
 
-@media only screen and (max-width: 768px) {
+.img-icon{
+  width:20px
+}
+
+@media only screen and (max-width: 48em) {
   .map {
     position: relative;
     min-width: 100vw;
@@ -141,7 +146,6 @@ text {
     top: 30vh;
     touch-action: none;
     margin-left: -50%;
-    /* transform: scale(1.5); */
   }
 
   .map-container {
@@ -179,7 +183,6 @@ text {
   svg {
     width: 100vw;
     height: 75vw;
-    /* transform: scale(1.5); */
   }
 
   .dept-label {
@@ -207,7 +210,7 @@ text {
   }
 }
 
-@media only screen and (max-width: 768px) and (orientation:landscape){
+@media only screen and (max-width: 48em) and (orientation:landscape){
 
   .map{
     top:0;

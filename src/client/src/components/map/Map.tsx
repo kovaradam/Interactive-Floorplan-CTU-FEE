@@ -88,6 +88,7 @@ class Map extends Component<{
     const { floorNumber: floor, paths, lang, building, selectedItem } = this.props;
     const { classrooms } = buildings[building][this.props.floorNumber];
     const { outlines, depts, entries } = buildings[building];
+    const currFacilities = facilities[getLocationOfBuilding(building)].filter(i => i.floor === floor && i.building === building)
     let scale = this.state.scale;
     const translate = this.state.translate;
     if (selectedItem && selectedItem.id !== this.prevSelectedItemId) {
@@ -119,23 +120,23 @@ class Map extends Component<{
                   strokeWidth="1.5"
                   stroke={outline.to >= floor ? '#000' : '#ccc'}
                   fill="#fff"
-                  fillOpacity="0" //{outline.transparent?"0.0":"1"}
+                  fillOpacity="0"
                 />
               ))}
             {outlines
               .filter(o => o.from <= floor && (o.hide ? o.to >= floor : true))
               .map(outline => (
                 <polygon
+                  className="outline"
                   key={outline.id}
                   id={outline.id}
                   points={outline.points}
                   strokeWidth="1.5"
                   stroke={outline.to >= floor ? '#000' : '#ccc'}
-                  // fill="#fff"
-                  fillOpacity="0" //{outline.transparent?"0.0":"1"}
+                  fillOpacity="0" 
                 />
               ))}
-           
+
             {classrooms
               .filter(r => r.points)
               .map(room => (
@@ -144,16 +145,12 @@ class Map extends Component<{
                   key={room.id}
                   points={room.points}
                   onClick={e => this.roomClickHandler({ ...room })}
-                  // strokeWidth="1.5"
                   className={'classroom room ' + contents.types[room.type][1]}
                   stroke="#000"
                 />
               ))}
 
-      
-            {facilities[building]
-              ?.filter(r => r.points)
-              .filter(i => i.floor === floor)
+            {currFacilities
               .map(room => (
                 <polygon
                   id={room.id}
@@ -240,8 +237,7 @@ class Map extends Component<{
             accessibility={false}
             setSelected={this.props.setSelectedVertical}
           />
-          {facilities[getLocationOfBuilding(building)]
-            .filter(i => i.floor === floor && i.building === building)
+          {currFacilities
             .map(i =>
               i.icon !== '' ? (
                 <i

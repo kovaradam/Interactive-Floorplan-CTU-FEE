@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './BuildingSlider.css';
+import './BuildingPicker.css';
 import FontAwesome from 'react-fontawesome';
 import { Language, getFloorString, enterKeyPress } from '../../utils/utils';
 import { getLocationOfBuilding } from '../../utils/location-utils';
 import { buildings } from '../../data';
-class BuildingSlider extends Component<{
+class BuildingPicker extends Component<{
   building: string;
   floor: number;
   lang: Language;
@@ -19,9 +19,9 @@ class BuildingSlider extends Component<{
 
   render() {
     return (
-      <section className="building-slider">
+      <section className="building-picker">
         <FontAwesome
-          className="slider-arrow"
+          className="picker-arrow"
           name="angle-left"
           size="2x"
           onClick={e => {
@@ -35,7 +35,7 @@ class BuildingSlider extends Component<{
         <div className={'building-title'}>{this.getTitle()}</div>
 
         <FontAwesome
-          className="slider-arrow"
+          className="picker-arrow"
           name="angle-right"
           size="2x"
           onClick={e => {
@@ -50,4 +50,4 @@ class BuildingSlider extends Component<{
   }
 }
 
-export default BuildingSlider;
+export default BuildingPicker;

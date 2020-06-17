@@ -3,23 +3,22 @@ import './App.css';
 import { Type, Language, locationCode, message, enterKeyPress, PathSearchStatus } from './utils/utils';
 import { PathResult, Path, MapItem, Vertical, Filter } from './utils/interfaces';
 import { filters, facilities, buildings, contents, icons } from './data';
-import {
-  LangToggle,
-  Filters,
-  FloorSlider,
-  Map,
-  LocationBanner,
-  buildPaths,
-  PathSearchBox,
-  VerticalBanner,
-  MessageBox,
-  findRoomById,
-  Search,
-} from './components';
+
 import config from './config';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { getLocationOfBuilding } from './utils/location-utils';
-import BuildingSlider from './components/building-slider/BuildingSlider';
+import BuildingPicker from './components/building-picker/BuildingPicker';
+import { findRoomById } from './components/search/search-utils';
+import { buildPaths } from './components/path/path-utils';
+import Search from './components/search/Search';
+import MessageBox from './components/message-box/MessageBox';
+import LangToggle from './components/language-toggle/LangToggle';
+import Map from './components/map/Map';
+import VerticalBanner from './components/location-banner/VerticalBanner';
+import LocationBanner from './components/location-banner/LocationBanner';
+import PathSearchBox from './components/path-search-box/PathSearchBox';
+import FloorPicker from './components/floor-picker/FloorPicker';
+import SidePanel from './components/side-panel/SidePanel';
 
 interface AppState {
   floor: number;
@@ -34,7 +33,7 @@ interface AppState {
   pathSearchStatus: PathSearchStatus;
   message: message | null;
   filtersVisible: boolean;
-  floorSliderVisible: boolean;
+  floorPickerVisible: boolean;
 }
 
 class App extends Component<{}, AppState> {
@@ -53,7 +52,7 @@ class App extends Component<{}, AppState> {
       pathSearchStatus: 'none',
       message: null,
       filtersVisible: false,
-      floorSliderVisible: false
+      floorPickerVisible: false
     };
   }
 
@@ -151,9 +150,9 @@ class App extends Component<{}, AppState> {
     });
   };
 
-  setFloorSliderVisible = (visible: boolean) => {
+  setFloorPickerVisible = (visible: boolean) => {
     // console.log(visible)
-    this.setState({floorSliderVisible: visible})
+    this.setState({floorPickerVisible: visible})
   }
 
   toggleFilter = (type: Type) => {
@@ -271,7 +270,7 @@ class App extends Component<{}, AppState> {
       pathSearchStatus,
       message,
       filtersVisible,
-      floorSliderVisible
+      floorPickerVisible
     } = this.state;
     const { from, to } = buildings[building].floorRange;
     const pathSearchBoxVisible = pathSearchQuery.end !== null;
@@ -279,8 +278,6 @@ class App extends Component<{}, AppState> {
     return (
       <div
         className="App"
-        // onTouchStart={()=>{}}
-        // onClick={e => console.log(e.clientX - 169, e.clientY - 219)}
       >
         <header>
           <h1>{contents.title[language]}</h1>
@@ -298,7 +295,7 @@ class App extends Component<{}, AppState> {
 
         <MessageBox message={message} setMessage={this.setMessage} />
 
-        <LangToggle cs={this.state.language === Language.CS} onClick={this.toggleLanguage} />
+        <LangToggle isCS={this.state.language === Language.CS} onClick={this.toggleLanguage} />
 
         <button
           className="home-button fa fa-home"
@@ -308,9 +305,9 @@ class App extends Component<{}, AppState> {
           }}
           onKeyPress={e => enterKeyPress(e, this.setDefaultState)}
         />
-        <div className={floorSliderVisible? "floor-slider-visible" : "floor-slider-hidden"}>
+        <div className={floorPickerVisible? "floor-picker-visible" : "floor-picker-hidden"}>
 
-        <FloorSlider
+        <FloorPicker
           item={null}
           current={currentFloor}
           from={from}
@@ -318,12 +315,12 @@ class App extends Component<{}, AppState> {
           lang={language}
           setCurrentFloor={this.setCurrentFloor}
           wheelHandler={this.wheelHandler}
-          hide={() => this.setFloorSliderVisible(false)}
+          hide={() => this.setFloorPickerVisible(false)}
           />
           </div>
         <div className="delim"></div>
 
-        <Filters
+        <SidePanel
           filters={this.state.filters}
           lang={language}
           location={location}
@@ -331,12 +328,13 @@ class App extends Component<{}, AppState> {
           toggleFilter={this.toggleFilter}
           setSelected={this.setSelectedItem}
           toggleVisibility={this.toggleFiltersVisibility}
+          toggleLanguage={this.toggleLanguage}
         />
         <button id="filters-button" className="main-page-button" onClick={this.toggleFiltersVisibility}>
-          <i className="fa fa-university" aria-hidden="true" />
+          <i className="fa fa-bars" aria-hidden="true" />
         </button>
         
-        <button id="floor-slider-button" className="main-page-button" onClick={() => this.setFloorSliderVisible(true)}>
+        <button id="floor-picker-button" className="main-page-button" onClick={() => this.setFloorPickerVisible(true)}>
           <i className="fa fa-angle-up" aria-hidden="true" />
           <i className="fa fa-angle-down" aria-hidden="true" />
         </button>
@@ -391,12 +389,6 @@ class App extends Component<{}, AppState> {
               style={{ left: path!.endPin.x, top: path!.endPin.y }}
             ></i>
           )}
-        {/* <img
-          src={process.env.PUBLIC_URL + "/background001.png"}
-          alt=""
-          style={{ opacity: 0.2 - 0.02 * currentFloor }}
-          className="background"
-        ></img> */}
 
         <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={100} transitionLeaveTimeout={100}>
           {selectedVertical !== null && (
@@ -435,7 +427,7 @@ class App extends Component<{}, AppState> {
           )}
         </ReactCSSTransitionGroup>
 
-        <BuildingSlider
+        <BuildingPicker
           building={building}
           floor={currentFloor}
           lang={language}

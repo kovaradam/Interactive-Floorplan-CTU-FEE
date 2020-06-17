@@ -3,7 +3,7 @@
   min-width: 550px;
   height: 50px;
   box-sizing: border-box;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.95);
   border-style: solid;
   border-color: rgb(190, 176, 176);
   border-width: 1px;
@@ -25,13 +25,11 @@
 }
 .buttons-container {
   flex-grow: 1;
-  /* display: flex; */
   justify-content: flex-end;
 }
 
 #search-box label {
-  /* flex-grow: 1; */
-  font-size: 20px;
+  font-size: 1.3em;
   margin-top: 10px;
   margin-left: 15px;
   margin-right: 15px;
@@ -42,21 +40,20 @@
 .path-search-input {
   padding: 0;
   text-align: left;
-  font-size: 18px;
+  font-size: 1.1em;
   font-weight: 500;
   margin-top: 13px;
   pointer-events: auto;
 }
 
 .path-search-input:hover {
-  /* font-weight: 600; */
   cursor: pointer;
 }
 
 .no-start {
   font-weight: 400;
   margin-top: 15px;
-  font-size: 15px;
+  font-size: 0.95em;
   color: gray;
 }
 
@@ -70,11 +67,10 @@
   margin-top: 15px;
   margin-left: 10px;
   color: gray;
-  font-size: 20px;
+  font-size: 1.3em;
 }
 
 .close-input-icon:hover {
-  /* color: red; */
   cursor: pointer;
   font-weight: 700;
   color: rgba(128, 128, 128, 0.815);
@@ -85,7 +81,6 @@
   position: relative;
   overflow: hidden;
   height: 100%;
-  /* width:40px; */
   margin: 0;
   padding: 0;
   float: right;
@@ -101,7 +96,7 @@
 
 #search-box button i {
   position: relative;
-  font-size: 25px;
+  font-size: 1.6em;
   float: right;
   margin-top: 5px;
 }
@@ -144,7 +139,6 @@
   
 }
 #search-box button.accessibility-button:active {
-  /* color: rgba(2, 150, 2, 0.253); */
   transform: scale(1.2);
 }
 
@@ -198,13 +192,13 @@
   
 }
 
-@media only screen and (max-width: 768px) and (orientation: portrait) {
+@media only screen and (max-width: 48em) and (orientation: portrait) {
   .buttons-container {
     justify-content: start;
     width: 100vw;
   }
   #search-box button.search-button.cs:after {
-    content: 'hledat';
+    content: 'Hledat';
   }
 
   #search-box button.search-button.en:after {
@@ -223,15 +217,14 @@
     height: 4.5vh;
     margin-top: 1vh;
     box-shadow: 0px 0px 29px -8px rgba(0, 0, 0, 0.68);
-    font-size: 5vw;
+    font-size: 1.1em;
     font-weight: 400;
   }
 }
 
-@media only screen and (max-width: 768px) and (orientation: landscape) {
+@media only screen and (max-width: 48em) and (orientation: landscape) {
   #search-box {
     flex-direction: row;
-    /* justify-content: space-evenly; */
     align-items: center;
     height: 18vh;
   }
@@ -274,7 +267,5 @@
   #search-box button.active-button {
     color: white;
   }
-  /* #search-box button.search-button {
-    color: white;
-  } */
+  
 }

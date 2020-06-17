@@ -2,10 +2,10 @@ import React from 'react';
 import './LangToggle.css';
 import { enterKeyPress } from '../../utils/utils';
 
-type props = { cs: boolean; onClick: () => void };
+type props = { isCS: boolean; onClick: () => void };
 
-const LangToggle = ({ cs, onClick }: props) => {
-  const classNames = cs ? ['on', 'off'] : ['off', 'on'];
+const LangToggle = ({ isCS, onClick }: props) => {
+  const classNames = isCS ? ['on', 'off'] : ['off', 'on'];
   return (
     <button
       className="lang"

@@ -9,7 +9,7 @@
   color: rgb(85, 85, 85);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 48em) {
   .toilet-icon-wrapper {
     font-size: 2vw;
   }

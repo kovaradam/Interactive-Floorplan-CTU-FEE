@@ -6,8 +6,9 @@ export default {
     start: ['Start:', 'Start:'],
     end: ['Cíl:', 'End:']
   },
+  language: ['Jazyk','Language'],
   'filters-header-title': ['Kategorie', 'Filters'],
-  info: { help: ['Nápověda', 'Help'], ref: ['Fel', 'FEE'] },
+  info: { help: ['Nápověda', 'Help'], ref: ['FEL', 'FEE'] },
   searchStatus: {
     active: ['Vyhledávám...', 'Searching...'],
     notFound: ['Dotaz nebyl nalezen', 'Could not find given item'],
