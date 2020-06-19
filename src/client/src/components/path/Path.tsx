@@ -9,13 +9,17 @@ type props = {
 };
 
 const PathComponent = ({ path, current, setFloor }: props) => {
-  return <polyline
-    onClick={() => setFloor(path.floor)}
-    points={path.points}
-    strokeWidth="1.5"
-    className={`path ${current && 'path-current'}`}
-    rx="4"
-  />
+  return (
+    <polyline
+      onClick={() => setFloor(path.floor)}
+      points={path.points}
+      strokeWidth="1.5"
+      className={`path ${current && 'path-current'}`}
+      rx="4"
+      markerStart="url(#pathMarkerStart)"
+      markerEnd={`url(#pathMarker${path.isEndPath && current ? 'End' : 'Start'})`}
+    />
+  );
 };
 
 export default PathComponent;

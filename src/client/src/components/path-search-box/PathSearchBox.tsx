@@ -26,7 +26,7 @@ class PathSearchBox extends Component<{
       this.props.setSearching('searching');
       myFetch(url)
         .then(result => {
-          // console.log(result);
+          console.log(result);
           if (result.error) {
             setTimeout(() => this.props.setSearching('failed-search'), 3000);
             return;

@@ -28,7 +28,7 @@ interface AppState {
   filters: Filter[];
   selectedItem: MapItem | null;
   selectedVertical: Vertical | null;
-  path: { paths: Path[] | null; endPin: { x: number; y: number } } | null;
+  paths: Path[] | null;
   pathSearchQuery: { start: MapItem | null; end: MapItem | null };
   pathSearchStatus: PathSearchStatus;
   message: message | null;
@@ -47,12 +47,12 @@ class App extends Component<{}, AppState> {
       filters: filters,
       selectedItem: null,
       selectedVertical: null,
-      path: { paths: null, endPin: { x: 0, y: 0 } },
+      paths: null,
       pathSearchQuery: { start: null, end: null },
       pathSearchStatus: 'none',
       message: null,
       filtersVisible: false,
-      floorPickerVisible: false
+      floorPickerVisible: false,
     };
   }
 
@@ -108,7 +108,7 @@ class App extends Component<{}, AppState> {
       building: config.default.building,
       location: config.default.location as locationCode,
       pathSearchQuery: { start: null, end: null },
-      path: null,
+      paths: null,
       pathSearchStatus: 'none',
     });
   };
@@ -122,12 +122,12 @@ class App extends Component<{}, AppState> {
   toggleBuilding = (building: string) => {
     const location = getLocationOfBuilding(building);
     const locationChange = location !== this.state.location;
-    const { pathSearchQuery, path } = this.state;
+    const { pathSearchQuery, paths } = this.state;
     if (this.state.building !== building) {
       this.setState({
         floor: buildings[building].defaultFloor,
         pathSearchQuery: locationChange ? { start: null, end: null } : pathSearchQuery,
-        path: locationChange ? null : path,
+        paths: locationChange ? null : paths,
         building: building,
         location: location,
       });
@@ -146,14 +146,14 @@ class App extends Component<{}, AppState> {
       location: location,
       building: location,
       pathSearchQuery: { start: null, end: null },
-      path: null,
+      paths: null,
     });
   };
 
   setFloorPickerVisible = (visible: boolean) => {
     // console.log(visible)
-    this.setState({floorPickerVisible: visible})
-  }
+    this.setState({ floorPickerVisible: visible });
+  };
 
   toggleFilter = (type: Type) => {
     const filters = this.state.filters;
@@ -213,10 +213,7 @@ class App extends Component<{}, AppState> {
     const end = this.state.pathSearchQuery.end! as MapItem;
     this.setState({
       pathSearchStatus: 'none',
-      path: {
-        paths: buildPaths(pathResults),
-        endPin: { x: end.x + 50, y: end.y + 160 },
-      },
+      paths: buildPaths(pathResults, end.floor),
     });
   };
 
@@ -228,7 +225,7 @@ class App extends Component<{}, AppState> {
     this.setState({
       pathSearchStatus: 'none',
       pathSearchQuery: { start: null, end: null },
-      path: null,
+      paths: null,
     });
   };
 
@@ -263,22 +260,20 @@ class App extends Component<{}, AppState> {
       language,
       selectedItem,
       selectedVertical,
-      path,
+      paths,
       pathSearchQuery,
       building,
       location,
       pathSearchStatus,
       message,
       filtersVisible,
-      floorPickerVisible
+      floorPickerVisible,
     } = this.state;
     const { from, to } = buildings[building].floorRange;
     const pathSearchBoxVisible = pathSearchQuery.end !== null;
-    const paths = path !== null && pathSearchQuery.end !== null ? (path as any).paths : null;
+    // const paths = paths !== null && pathSearchQuery.end !== null ? (paths as any).paths : null;
     return (
-      <div
-        className="App"
-      >
+      <div className="App">
         <header>
           <h1>{contents.title[language]}</h1>
         </header>
@@ -305,19 +300,18 @@ class App extends Component<{}, AppState> {
           }}
           onKeyPress={e => enterKeyPress(e, this.setDefaultState)}
         />
-        <div className={floorPickerVisible? "floor-picker-visible" : "floor-picker-hidden"}>
-
-        <FloorPicker
-          item={null}
-          current={currentFloor}
-          from={from}
-          to={to}
-          lang={language}
-          setCurrentFloor={this.setCurrentFloor}
-          wheelHandler={this.wheelHandler}
-          hide={() => this.setFloorPickerVisible(false)}
+        <div className={floorPickerVisible ? 'floor-picker-visible' : 'floor-picker-hidden'}>
+          <FloorPicker
+            item={null}
+            current={currentFloor}
+            from={from}
+            to={to}
+            lang={language}
+            setCurrentFloor={this.setCurrentFloor}
+            wheelHandler={this.wheelHandler}
+            hide={() => this.setFloorPickerVisible(false)}
           />
-          </div>
+        </div>
         <div className="delim"></div>
 
         <SidePanel
@@ -333,7 +327,7 @@ class App extends Component<{}, AppState> {
         <button id="filters-button" className="main-page-button" onClick={this.toggleFiltersVisibility}>
           <i className="fa fa-bars" aria-hidden="true" />
         </button>
-        
+
         <button id="floor-picker-button" className="main-page-button" onClick={() => this.setFloorPickerVisible(true)}>
           <i className="fa fa-angle-up" aria-hidden="true" />
           <i className="fa fa-angle-down" aria-hidden="true" />
@@ -380,15 +374,6 @@ class App extends Component<{}, AppState> {
           swipeHorHandler={this.buildingArrowHandler}
           wheelHandler={this.wheelHandler}
         />
-        {paths !== null &&
-          pathSearchQuery.end!.floor === currentFloor &&
-          pathSearchQuery.end!.building === building && (
-            <i
-              className={'fa fa-map-marker end-pin'}
-              aria-hidden="true"
-              style={{ left: path!.endPin.x, top: path!.endPin.y }}
-            ></i>
-          )}
 
         <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={100} transitionLeaveTimeout={100}>
           {selectedVertical !== null && (

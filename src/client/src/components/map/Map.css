@@ -17,9 +17,21 @@
   transition: all 200ms;
 }
 
-@keyframes item-show{
-  0%{opacity:0}
-  100%{opacity:1}
+@keyframes item-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.map svg {
+  z-index: 3;
+}
+
+.outline {
+  pointer-events: none;
 }
 
 .classroom {
@@ -29,10 +41,12 @@
   fill: rgb(222, 233, 253);
 }
 
-.Conference, .Office{
+.Conference,
+.Office {
   fill: rgb(202, 203, 206);
 }
-.Meeting:hover, .Office:hover{
+.Meeting:hover,
+.Office:hover {
   fill: rgb(225, 226, 231);
 }
 
@@ -77,6 +91,19 @@ text,
   margin-top: 0;
   margin-bottom: 0;
 }
+
+#pathMarkerStart {
+  fill: rgba(255, 124, 124, 0.6);
+}
+
+#pathMarkerEnd {
+  fill: rgba(255, 0, 0, 0.582);
+}
+
+#pathMarkerEnd path {
+  transform: rotate(180deg) scale(0.0035) translate(-190%, -530%);
+}
+
 .room-number-header:hover {
   cursor: pointer;
 }
@@ -99,7 +126,7 @@ text,
   flex-direction: column-reverse;
 }
 
-.entry-adjacent{
+.entry-adjacent {
   flex-direction: column;
 }
 
@@ -124,18 +151,18 @@ text,
   font-size: 25px;
 }
 
-.entry-icon:hover, .adjacent:hover {
+.entry-icon:hover,
+.adjacent:hover {
   color: rgba(247, 36, 36, 0.8);
   cursor: pointer;
 }
 
-#item-pin-wrapper {
-  position: absolute;
+#item-marker-wrapper {
   display: none;
 }
 
-.img-icon{
-  width:20px
+.img-icon {
+  width: 20px;
 }
 
 @media only screen and (max-width: 48em) {
@@ -154,13 +181,13 @@ text,
     width: 100vw;
   }
 
-  #item-pin-wrapper {
+  #item-marker-wrapper {
     display: block;
     position: absolute;
     z-index: 5;
   }
 
-  .item-pin {
+  .item-marker {
     position: relative;
     width: 100%;
     margin-left: -50%;
@@ -210,14 +237,12 @@ text,
   }
 }
 
-@media only screen and (max-width: 48em) and (orientation:landscape){
-
-  .map{
-    top:0;
+@media only screen and (max-width: 48em) and (orientation: landscape) {
+  .map {
+    top: 0;
   }
-  
-  .map-container{
+
+  .map-container {
     transform: scale(0.7) translate(1px, 1px);
   }
-
 }

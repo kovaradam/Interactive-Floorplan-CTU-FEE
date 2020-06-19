@@ -4,6 +4,7 @@ export interface Path {
   floor: number;
   building: string;
   points: string;
+  isEndPath: boolean
 }
 
 export interface PathResult extends Path {

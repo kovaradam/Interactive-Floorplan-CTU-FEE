@@ -6,9 +6,13 @@ polyline{
 
 .path {
   stroke: rgba(255, 184, 184, 0.4);
+  stroke-dasharray: 5 8;
+  stroke-linejoin: round;
+  transition: all 100ms
 }
 
 .path-current {
+  stroke-dasharray: none;
   stroke: rgba(255, 124, 124, 0.6);
 }
 

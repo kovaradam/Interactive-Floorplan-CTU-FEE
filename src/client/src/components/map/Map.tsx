@@ -88,7 +88,9 @@ class Map extends Component<{
     const { floorNumber: floor, paths, lang, building, selectedItem } = this.props;
     const { classrooms } = buildings[building][this.props.floorNumber];
     const { outlines, depts, entries } = buildings[building];
-    const currFacilities = facilities[getLocationOfBuilding(building)].filter(i => i.floor === floor && i.building === building)
+    const currFacilities = facilities[getLocationOfBuilding(building)].filter(
+      i => i.floor === floor && i.building === building,
+    );
     let scale = this.state.scale;
     const translate = this.state.translate;
     if (selectedItem && selectedItem.id !== this.prevSelectedItemId) {
@@ -110,58 +112,63 @@ class Map extends Component<{
           style={{ transform: `scale(${scale}) translate(${translate.x}px,${translate.y}px)` }}
         >
           <svg width="720" height="540" viewBox="0 0 580 400">
-            {outlines
-              .filter(o => o.from <= floor && (o.hide ? o.to >= floor : true) && o.d !== undefined)
-              .map(outline => (
+            <defs>
+              <marker id="pathMarkerStart" markerWidth="4" markerHeight="4" refX="2" refY="2">
+                <circle cx="2" cy="2" r="0.9" />
+              </marker>
+              <marker id="pathMarkerEnd" markerWidth="4" markerHeight="8" refX="2" refY="8">
                 <path
-                  key={outline.id}
-                  id={outline.id}
-                  d={outline.d}
-                  strokeWidth="1.5"
-                  stroke={outline.to >= floor ? '#000' : '#ccc'}
-                  fill="#fff"
-                  fillOpacity="0"
+                  d="m 768,896 q 0,106 -75,181 -75,75 -181,75 -106,0 -181,-75 -75,-75 -75,-181 0,-106 75,-181 75,-75 181,-75 106,0 181,75 75,75 75,181 z m 256,0 q 0,-109 -33,-179 L 627,-57 q -16,-33 -47.5,-52 -31.5,-19 -67.5,-19 -36,0 -67.5,19 Q 413,-90 398,-57 L 33,717 Q 0,787 0,896 q 0,212 150,362 150,150 362,150 212,0 362,-150 150,-150 150,-362 z"
                 />
-              ))}
+              </marker>
+            </defs>
             {outlines
               .filter(o => o.from <= floor && (o.hide ? o.to >= floor : true))
-              .map(outline => (
-                <polygon
-                  className="outline"
-                  key={outline.id}
-                  id={outline.id}
-                  points={outline.points}
-                  strokeWidth="1.5"
-                  stroke={outline.to >= floor ? '#000' : '#ccc'}
-                  fillOpacity="0" 
-                />
-              ))}
+              .map(outline =>
+                outline.points ? (
+                  <polygon
+                    className="outline"
+                    key={outline.id}
+                    id={outline.id}
+                    points={outline.points}
+                    strokeWidth="1.5"
+                    stroke={outline.to >= floor ? '#000' : '#ccc'}
+                    fillOpacity="0"
+                  />
+                ) : (
+                  <path
+                    key={outline.id}
+                    id={outline.id}
+                    d={outline.d}
+                    strokeWidth="1.5"
+                    stroke={outline.to >= floor ? '#000' : '#ccc'}
+                    fill="#fff"
+                    fillOpacity="0"
+                  />
+                ),
+              )}
+            {classrooms.map(room => (
+              <polygon
+                id={room.id}
+                key={room.id}
+                points={room.points}
+                onClick={e => this.roomClickHandler({ ...room })}
+                className={'classroom room ' + contents.types[room.type][1]}
+                stroke="#000"
+              />
+            ))}
 
-            {classrooms
-              .filter(r => r.points)
-              .map(room => (
-                <polygon
-                  id={room.id}
-                  key={room.id}
-                  points={room.points}
-                  onClick={e => this.roomClickHandler({ ...room })}
-                  className={'classroom room ' + contents.types[room.type][1]}
-                  stroke="#000"
-                />
-              ))}
-
-            {currFacilities
-              .map(room => (
-                <polygon
-                  id={room.id}
-                  key={room.id}
-                  points={room.points}
-                  onClick={e => this.roomClickHandler({ ...room }!)}
-                  strokeWidth="1.5"
-                  className="facility room"
-                  stroke="#000"
-                />
-              ))}
+            {currFacilities.map(room => (
+              <polygon
+                id={room.id}
+                key={room.id}
+                points={room.points}
+                onClick={e => this.roomClickHandler({ ...room }!)}
+                strokeWidth="1.5"
+                className="facility room"
+                stroke="#000"
+              />
+            ))}
 
             {paths !== null &&
               paths
@@ -170,7 +177,7 @@ class Map extends Component<{
                   <PathComponent
                     key={`${path.points}`}
                     setFloor={this.props.setFloor}
-                    path={{ floor: path.floor, building: path.building, points: path.points }}
+                    path={path}
                     current={path.floor === floor ? true : false}
                   />
                 ))}
@@ -237,35 +244,34 @@ class Map extends Component<{
             accessibility={false}
             setSelected={this.props.setSelectedVertical}
           />
-          {currFacilities
-            .map(i =>
-              i.icon !== '' ? (
-                <i
-                  key={i.id}
-                  className={`${i.icon} filter-item-map-icon`}
-                  aria-hidden="true"
-                  style={{ top: normalizeToMapY(i.y - 20), left: normalizeToMapX(i.x - 5) }}
-                ></i>
-              ) : (
-                <img
-                  key={i.id}
-                  className="filter-item-map-icon img-icon"
-                  alt="alt"
-                  style={{ top: normalizeToMapY(i.y - 20), left: normalizeToMapX(i.x - 5) }}
-                  src={require(`../../icons/${i.id}.png`)}
-                ></img>
-              ),
-            )}
+          {currFacilities.map(i =>
+            i.icon !== '' ? (
+              <i
+                key={i.id}
+                className={`${i.icon} filter-item-map-icon`}
+                aria-hidden="true"
+                style={{ top: normalizeToMapY(i.y - 20), left: normalizeToMapX(i.x - 5) }}
+              ></i>
+            ) : (
+              <img
+                key={i.id}
+                className="filter-item-map-icon img-icon"
+                alt="alt"
+                style={{ top: normalizeToMapY(i.y - 20), left: normalizeToMapX(i.x - 5) }}
+                src={require(`../../icons/${i.id}.png`)}
+              ></img>
+            ),
+          )}
           {selectedItem !== null && selectedItem.floor === floor && (
             <div
-              id="item-pin-wrapper"
+              id="item-marker-wrapper"
               style={{
                 left: normalizeToMapX(selectedItem.x - 15),
                 top: normalizeToMapY(selectedItem.y - 60),
                 transform: `scale(${1 - scale / 5})`,
               }}
             >
-              <i className="fa fa-map-marker item-pin" aria-hidden="true"></i>
+              <i className="fa fa-map-marker item-marker" aria-hidden="true"></i>
             </div>
           )}
         </section>
