@@ -271,7 +271,7 @@ class App extends Component<{}, AppState> {
     } = this.state;
     const { from, to } = buildings[building].floorRange;
     const pathSearchBoxVisible = pathSearchQuery.end !== null;
-    // const paths = paths !== null && pathSearchQuery.end !== null ? (paths as any).paths : null;
+
     return (
       <div className="App">
         <header>
@@ -315,7 +315,6 @@ class App extends Component<{}, AppState> {
         <div className="delim"></div>
 
         <SidePanel
-          filters={this.state.filters}
           lang={language}
           location={location}
           visible={filtersVisible}
@@ -387,6 +386,7 @@ class App extends Component<{}, AppState> {
             />
           )}
         </ReactCSSTransitionGroup>
+
         <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={100} transitionLeaveTimeout={100}>
           {selectedItem !== null && (
             <LocationBanner
@@ -398,6 +398,7 @@ class App extends Component<{}, AppState> {
             />
           )}
         </ReactCSSTransitionGroup>
+
         <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={100} transitionLeaveTimeout={100}>
           {pathSearchBoxVisible && (
             <PathSearchBox

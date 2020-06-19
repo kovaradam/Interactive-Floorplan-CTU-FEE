@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './Filters.css';
-import { facilities } from '../../data';
-import { Filter, Facility, MapItem } from '../../utils/interfaces';
+import { facilities, filters } from '../../data';
+import { Facility, MapItem } from '../../utils/interfaces';
 import { Type, locationCode, enterKeyPress, Language } from '../../utils/utils';
 import { SlideDown } from 'react-slidedown';
 
 class Filters extends Component<{
-  filters: Filter[];
   lang: Language;
   location: locationCode;
   toggleFilter: (type: Type) => void;
@@ -47,7 +46,7 @@ class Filters extends Component<{
   };
 
   render() {
-    const { filters, lang, location } = this.props;
+    const { lang, location } = this.props;
     if (location !== this.location) {
       this.populateItems();
       this.location = location;
