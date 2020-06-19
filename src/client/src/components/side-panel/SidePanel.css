@@ -4,7 +4,6 @@
   float: right;
   z-index: 4;
   width: 28%;
-  /* height: 650px; */
   height: min-content;
 }
 
@@ -44,8 +43,9 @@
 }
 
 #lang-toggle-container span {
+  justify-content: flex-end;
   flex: 1;
-  padding: 0 25px 0 60px;  
+  /* padding: 0 25px 0 60px;   */
 }
 
 #lang-toggle-container span:hover {
@@ -53,12 +53,14 @@
 }
 
 #lang-toggle-container span p {
+  padding: 0 5px;
   text-align: center;
   transition: all 100ms;
+  flex:0;
 }
 
 #lang-toggle-container p:active {
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
   color: rgb(150, 151, 153);
 }
 
@@ -78,7 +80,7 @@
   justify-content: space-around;
   padding: 10px;
   border-width: 1px 0 0 0;
-  margin-top: 35px;
+  margin-top: 5px;
 }
 
 .info {

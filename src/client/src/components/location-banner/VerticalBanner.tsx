@@ -21,7 +21,7 @@ class VerticalBanner extends Component<{
     const { x, y, type, from, to } = this.props.item;
     const { lang, floor } = this.props;
     return (
-      <div className="location-banner-wrapper " style={{ top: y + 90, left: x + 70 }}>
+      <div className="location-banner-wrapper " style={{ top: y + 185, left: x + 72 }}>
         <div className="location-banner-top-box ">
           <h1 className="location-banner-header vertical-header">{contents.types[type][lang]}</h1>
           <FloorPicker

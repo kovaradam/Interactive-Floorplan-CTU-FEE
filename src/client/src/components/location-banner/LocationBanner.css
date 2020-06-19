@@ -9,6 +9,13 @@
   pointer-events: none;
 }
 
+@media only screen and (min-width: 48em) {
+  .location-banner-wrapper {
+  transform: translateY(-100%);
+
+}
+}
+
 .location-banner-top-box {
   position: relative;
   width: min-content;
@@ -152,7 +159,7 @@
     padding-top: 2vh;
     text-align: left;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   .vertical-header {

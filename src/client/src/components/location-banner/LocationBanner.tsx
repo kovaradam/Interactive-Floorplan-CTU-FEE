@@ -47,8 +47,7 @@ class LocationBanner extends Component<{
     return (
       <div
         className="location-banner-wrapper"
-        // onClick={this.handleClickOutside}
-        style={{ top: y + 75, left: x + 60 }}
+        style={{ top: y + 170, left: x + 60 }}
       >
         <div className="location-banner-top-box">
           <div className="location-banner-header">
