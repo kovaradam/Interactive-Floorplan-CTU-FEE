@@ -19,6 +19,7 @@ import LocationBanner from './components/location-banner/LocationBanner';
 import PathSearchBox from './components/path-search-box/PathSearchBox';
 import FloorPicker from './components/floor-picker/FloorPicker';
 import SidePanel from './components/side-panel/SidePanel';
+import { FIX_ROOM_BANNER_POS } from './utils/map_constants';
 
 interface AppState {
   floor: number;
@@ -75,8 +76,8 @@ class App extends Component<{}, AppState> {
     let item;
     try {
       item = { ...findRoomById(query) };
-      item.x = item.x + 4;
-      item.y = item.y + 24;
+      item.x = item.x + FIX_ROOM_BANNER_POS.x;
+      item.y = item.y + FIX_ROOM_BANNER_POS.y;
     } catch (e) {
       for (const building in facilities) {
         const result = facilities[building].find(i => i.id === query);

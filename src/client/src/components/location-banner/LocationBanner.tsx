@@ -5,6 +5,7 @@ import { MapItem } from '../../utils/interfaces';
 import contents from '../../data/text-content';
 import icons from '../../data/fa-icons';
 import { Language, message } from '../../utils/utils';
+import { FIX_BANNER_POS } from '../../utils/map_constants';
 
 class LocationBanner extends Component<{
   item: MapItem;
@@ -13,6 +14,8 @@ class LocationBanner extends Component<{
   mapButtonHandler: (i: MapItem) => void;
   setMessage: (m: message) => void;
 }> {
+
+
   handleClickOutside = () => {
     this.props.clickOutsideHandler();
   };
@@ -47,7 +50,7 @@ class LocationBanner extends Component<{
     return (
       <div
         className="location-banner-wrapper"
-        style={{ top: y + 170, left: x + 60 }}
+        style={{ top: y + FIX_BANNER_POS.y, left: x + FIX_BANNER_POS.x }}
       >
         <div className="location-banner-top-box">
           <div className="location-banner-header">

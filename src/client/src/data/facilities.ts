@@ -71,7 +71,7 @@ export const facilities = {
       type: [Type.SERVICES],
       selected: false,
       floor: 0,
-      desc:['Centrum pro organizaci studijních náležitostí','Help with organiozational issues for students'],
+      desc:['Centrum pro organizaci studijních náležitostí','Help with organiozational issues for students of CTU FEE'],
       points: '292,270 292,367 341,367 341,270',
       x: 388,
       y: 427,

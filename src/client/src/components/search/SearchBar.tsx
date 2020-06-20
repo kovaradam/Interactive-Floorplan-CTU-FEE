@@ -5,6 +5,7 @@ import { Language, locationCode, message, removeDiacritic } from '../../utils/ut
 import { MapItem, Facility } from '../../utils/interfaces';
 import { findRoomById, getfloorNumber, getNumberFromId, getLocationFromId, isValidLocation } from './search-utils';
 import { icons, contents, facilities } from '../../data';
+import { FIX_ROOM_BANNER_POS } from '../../utils/map_constants';
 
 type SearchBarState = {
   listOpen: boolean;
@@ -84,8 +85,8 @@ class SearchBar extends Component<{
     }
 
     this.props.setSelected({
-      x: room.x + 4,
-      y: room.y + 24,
+      x: room.x + FIX_ROOM_BANNER_POS.x,
+      y: room.y + FIX_ROOM_BANNER_POS.y,
       floor: getfloorNumber(getNumberFromId(room.id)),
       id: room.id,
       title: person.fullName,

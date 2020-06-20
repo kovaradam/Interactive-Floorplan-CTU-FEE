@@ -8,6 +8,7 @@ import myFetch from '../../utils/fetch';
 import { buildings, contents, locations, icons } from '../../data';
 import { findRoom, findRoomById } from './search-utils';
 import { deptInBuilding, getBuildingOfDept } from '../../utils/location-utils';
+import { FIX_ROOM_BANNER_POS } from '../../utils/map_constants';
 
 type SearchState = {
   currentBuilding: string;
@@ -42,8 +43,8 @@ export class Search extends Component<
 
   setFoundItem(room: Room, name = '') {
     this.props.setSelectedItem({
-      x: room.x,
-      y: room.y + 24,
+      x: room.x + FIX_ROOM_BANNER_POS.x,
+      y: room.y + FIX_ROOM_BANNER_POS.y,
       floor: room.floor,
       id: room.id,
       title: name,

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import './Map.css';
 import { buildings, facilities, contents } from '../../data';
 import PathComponent from '../path/Path';
-import { Path, MapItem, Vertical } from '../../utils/interfaces';
+import { Path, MapItem, Vertical, Facility } from '../../utils/interfaces';
 import { Language, locationCode, normalizeToMapX, normalizeToMapY } from '../../utils/utils';
 import Toilets from '../icon-items/Toilets';
 import Verticals from '../icon-items/Verticals';
 import TouchHandler from '../../utils/touchHandler';
 import { getLocationOfBuilding } from '../../utils/location-utils';
+import { FIX_ROOM_BANNER_POS, FIX_ROOM_NUMBER_POS, FIX_ENTRY_BANNER_POS, FIX_FACILITY_ICON_POS, FIX_MARKER_POS } from '../../utils/map_constants';
 
 class Map extends Component<{
   floorNumber: number;
@@ -23,17 +24,19 @@ class Map extends Component<{
   setBuilding: (b: locationCode) => void;
 }> {
   state = { scale: 1, translate: { x: 1, y: 1 } };
-  swipeHandler;
-  map;
   scaleFix = false;
   prevSelectedItemId = '';
+  swipeHandler: any;
+  map: any;
+
+  SCALE_BOUND = {min: 1, max: 2};
 
   pinchZoomHandler = (scale: number) => {
     scale += this.state.scale;
-    if (scale > 2) scale = 2;
-    if (scale < 1) {
+    if (scale > this.SCALE_BOUND.max) scale = this.SCALE_BOUND.max;
+    if (scale < this.SCALE_BOUND.min) {
       this.swipeHandler.zoomedIn = false;
-      this.setState({ scale: 1, translate: { x: 1, y: 1 } });
+      this.setState({ scale: this.SCALE_BOUND.min, translate: { x: 1, y: 1 } });
     } else {
       this.setState({ scale: scale });
     }
@@ -55,7 +58,8 @@ class Map extends Component<{
       item.type = item.type[0];
       item.title = item.title[lang];
     } else {
-      item.y += 18;
+      // classroom
+      item.y += FIX_ROOM_BANNER_POS.y;
     }
     this.props.setSelectedItem(item);
   };
@@ -89,13 +93,13 @@ class Map extends Component<{
     const { classrooms } = buildings[building][this.props.floorNumber];
     const { outlines, depts, entries } = buildings[building];
     const currFacilities = facilities[getLocationOfBuilding(building)].filter(
-      i => i.floor === floor && i.building === building,
+      (i: Facility) => i.floor === floor && i.building === building,
     );
     let scale = this.state.scale;
     const translate = this.state.translate;
     if (selectedItem && selectedItem.id !== this.prevSelectedItemId) {
       this.scaleFix = true;
-      scale = 1;
+      scale =  1;
       translate.x = 1;
       translate.y = 1;
     }
@@ -117,9 +121,7 @@ class Map extends Component<{
                 <circle cx="2" cy="2" r="0.9" />
               </marker>
               <marker id="pathMarkerEnd" markerWidth="4" markerHeight="8" refX="2" refY="8">
-                <path
-                  d="m 768,896 q 0,106 -75,181 -75,75 -181,75 -106,0 -181,-75 -75,-75 -75,-181 0,-106 75,-181 75,-75 181,-75 106,0 181,75 75,75 75,181 z m 256,0 q 0,-109 -33,-179 L 627,-57 q -16,-33 -47.5,-52 -31.5,-19 -67.5,-19 -36,0 -67.5,19 Q 413,-90 398,-57 L 33,717 Q 0,787 0,896 q 0,212 150,362 150,150 362,150 212,0 362,-150 150,-150 150,-362 z"
-                />
+                <path d="m 768,896 q 0,106 -75,181 -75,75 -181,75 -106,0 -181,-75 -75,-75 -75,-181 0,-106 75,-181 75,-75 181,-75 106,0 181,75 75,75 75,181 z m 256,0 q 0,-109 -33,-179 L 627,-57 q -16,-33 -47.5,-52 -31.5,-19 -67.5,-19 -36,0 -67.5,19 Q 413,-90 398,-57 L 33,717 Q 0,787 0,896 q 0,212 150,362 150,150 362,150 212,0 362,-150 150,-150 150,-362 z" />
               </marker>
             </defs>
             {outlines
@@ -152,7 +154,7 @@ class Map extends Component<{
                 id={room.id}
                 key={room.id}
                 points={room.points}
-                onClick={e => this.roomClickHandler({ ...room })}
+                onClick={() => this.roomClickHandler({ ...room })}
                 className={'classroom room ' + contents.types[room.type][1]}
                 stroke="#000"
               />
@@ -163,7 +165,7 @@ class Map extends Component<{
                 id={room.id}
                 key={room.id}
                 points={room.points}
-                onClick={e => this.roomClickHandler({ ...room }!)}
+                onClick={() => this.roomClickHandler({ ...room }!)}
                 strokeWidth="1.5"
                 className="facility room"
                 stroke="#000"
@@ -192,10 +194,13 @@ class Map extends Component<{
             </h1>
           ))}
 
-          {classrooms.map(room => (
+          {classrooms.map((room: MapItem) => (
             <div
               className="room-number-wrapper"
-              style={{ top: normalizeToMapY(room.y + 8), left: normalizeToMapX(room.x) }}
+              style={{
+                top: normalizeToMapY(room.y + FIX_ROOM_NUMBER_POS.y),
+                left: normalizeToMapX(room.x + FIX_ROOM_NUMBER_POS.x),
+              }}
               key={room.id}
             >
               <h1 className="room-number-header">{room.id.slice(room.id.indexOf('-') + 1)}</h1>
@@ -224,8 +229,8 @@ class Map extends Component<{
                   aria-hidden="true"
                   onClick={() =>
                     this.props.setSelectedItem({
-                      x: e.x,
-                      y: e.y + (e.adjacent !== '' ? 50 : 0),
+                      x: e.x + FIX_ENTRY_BANNER_POS.x,
+                      y: e.y + (e.adjacent !== '' ? FIX_ENTRY_BANNER_POS.y : 0),
                       floor: e.floor,
                       id: e.id,
                       title: e.title,
@@ -244,20 +249,26 @@ class Map extends Component<{
             accessibility={false}
             setSelected={this.props.setSelectedVertical}
           />
-          {currFacilities.map(i =>
+          {currFacilities.map((i: Facility) =>
             i.icon !== '' ? (
               <i
                 key={i.id}
                 className={`${i.icon} filter-item-map-icon`}
                 aria-hidden="true"
-                style={{ top: normalizeToMapY(i.y - 20), left: normalizeToMapX(i.x - 5) }}
+                style={{
+                  top: normalizeToMapY(i.y + FIX_FACILITY_ICON_POS.y),
+                  left: normalizeToMapX(i.x + FIX_FACILITY_ICON_POS.x),
+                }}
               ></i>
             ) : (
               <img
                 key={i.id}
                 className="filter-item-map-icon img-icon"
                 alt="alt"
-                style={{ top: normalizeToMapY(i.y - 20), left: normalizeToMapX(i.x - 5) }}
+                style={{
+                  top: normalizeToMapY(i.y + FIX_FACILITY_ICON_POS.y),
+                  left: normalizeToMapX(i.x + FIX_FACILITY_ICON_POS.x),
+                }}
                 src={require(`../../icons/${i.id}.png`)}
               ></img>
             ),
@@ -266,8 +277,8 @@ class Map extends Component<{
             <div
               id="item-marker-wrapper"
               style={{
-                left: normalizeToMapX(selectedItem.x - 15),
-                top: normalizeToMapY(selectedItem.y - 60),
+                left: normalizeToMapX(selectedItem.x + FIX_MARKER_POS.x),
+                top: normalizeToMapY(selectedItem.y + FIX_MARKER_POS.y),
                 transform: `scale(${1 - scale / 5})`,
               }}
             >

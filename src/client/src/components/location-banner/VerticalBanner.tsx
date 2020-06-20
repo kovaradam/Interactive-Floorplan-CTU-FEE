@@ -17,11 +17,13 @@ class VerticalBanner extends Component<{
     this.props.clickOutsideHandler(null);
   };
 
+  ADJ_POS = {x: 72, y: 185}
+
   render() {
     const { x, y, type, from, to } = this.props.item;
     const { lang, floor } = this.props;
     return (
-      <div className="location-banner-wrapper " style={{ top: y + 185, left: x + 72 }}>
+      <div className="location-banner-wrapper " style={{ top: y + this.ADJ_POS.y, left: x + this.ADJ_POS.x }}>
         <div className="location-banner-top-box ">
           <h1 className="location-banner-header vertical-header">{contents.types[type][lang]}</h1>
           <FloorPicker
