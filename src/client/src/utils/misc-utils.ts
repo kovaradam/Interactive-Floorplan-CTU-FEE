@@ -1,3 +1,5 @@
+import { MAP_DIMS } from "./map-fix-constants";
+
 export enum Language {
   CS,
   EN,
@@ -43,11 +45,11 @@ export const toiletTypes = {
 };
 
 export function normalizeToMapX(x: number) {
-  const res = x / 7.2;
+  const res = x / (MAP_DIMS.x/100);
   return `${res.toFixed(2)}%`;
 }
 export function normalizeToMapY(y: number) {
-  const res = y / 5.4;
+  const res = y / (MAP_DIMS.y/100);
   return `${res.toFixed(2)}%`;
 }
 
