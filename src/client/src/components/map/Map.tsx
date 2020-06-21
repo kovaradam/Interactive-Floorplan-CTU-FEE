@@ -91,6 +91,18 @@ class Map extends Component<{
     }
   }
 
+  // FOR DRAWING PURPOSES
+  // svg
+  // points = ''
+  // registerPoints = (e: React.MouseEvent) => {
+  //   const point = this.svg.createSVGPoint() as SVGPoint
+  //   point.x = e.clientX; 
+  //   point.y = e.clientY;
+  //   const cursor = (point.matrixTransform(this.svg.getScreenCTM().inverse()))
+  //   this.points += `${cursor.x.toFixed()},${cursor.y.toFixed()} `
+  //   console.log(this.points)
+  // }
+
   render() {
     const { floorNumber: floor, paths, lang, building, selectedItem } = this.props;
     const { classrooms } = buildings[building][this.props.floorNumber];
@@ -107,7 +119,7 @@ class Map extends Component<{
       translate.y = 1;
     }
     this.prevSelectedItemId = selectedItem?.id || '';
-
+    
     return (
       <div className="map-container">
         <section
@@ -116,9 +128,9 @@ class Map extends Component<{
           onWheel={e => {
             this.props.wheelHandler(-e.deltaY);
           }}
-          style={{ transform: `scale(${scale}) translate(${translate.x}px,${translate.y}px)` }}
+         style={{ transform: `scale(${scale}) translate(${translate.x}px,${translate.y}px)` }}
         >
-          <svg width="720" height="540" viewBox="0 0 580 400">
+          <svg width="720" height="540" viewBox="0 0 580 400" >
             <defs>
               <marker id="pathMarkerStart" markerWidth="4" markerHeight="4" refX="2" refY="2">
                 <circle cx="2" cy="2" r="0.9" />
@@ -130,7 +142,6 @@ class Map extends Component<{
             {outlines
               .filter(o => o.from <= floor && (o.hide ? o.to >= floor : true))
               .map(outline =>
-                outline.points ? (
                   <polygon
                     className="outline"
                     key={outline.id}
@@ -140,17 +151,6 @@ class Map extends Component<{
                     stroke={outline.to >= floor ? '#000' : '#ccc'}
                     fillOpacity="0"
                   />
-                ) : (
-                  <path
-                    key={outline.id}
-                    id={outline.id}
-                    d={outline.d}
-                    strokeWidth="1.5"
-                    stroke={outline.to >= floor ? '#000' : '#ccc'}
-                    fill="#fff"
-                    fillOpacity="0"
-                  />
-                ),
               )}
             {classrooms.map(room => (
               <polygon
