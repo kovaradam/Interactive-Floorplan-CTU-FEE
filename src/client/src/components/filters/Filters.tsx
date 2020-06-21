@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './Filters.css';
-import { facilities, filters } from '../../data';
-import { Facility, MapItem } from '../../utils/interfaces';
-import { Type, locationCode, enterKeyPress, Language } from '../../utils/utils';
+import { Facility, MapItem, Filter } from '../../utils/interfaces';
+import { Type, enterKeyPress, Language } from '../../utils/misc-utils';
+import { locationCode} from '../../data/locations';
 import { SlideDown } from 'react-slidedown';
+import { facilities, filters } from '../../data/facilities';
 
 class Filters extends Component<{
   lang: Language;
   location: locationCode;
-  toggleFilter: (type: Type) => void;
   setSelected: (item: MapItem) => void;
 }> {
   private location: locationCode;
@@ -30,6 +30,11 @@ class Filters extends Component<{
       });
     });
   };
+
+  toggleFilter = (filter: Filter) => {
+    filter.selected = !filter.selected
+    this.forceUpdate()
+  }
 
   itemClickHandler = (item: Facility) => {
     const lang = this.props.lang;
@@ -61,12 +66,12 @@ class Filters extends Component<{
                 className={`filters-list-item ${filter.selected ? 'selected' : 'non-selected'}`}
                 key={filter.type}
                 onKeyPress={e => {
-                  e.key === 'Enter' && this.props.toggleFilter(filter.type);
+                  e.key === 'Enter' && this.toggleFilter(filter);
                 }}
               >
                 <div
                   onClick={() => {
-                    this.props.toggleFilter(filter.type);
+                    this.toggleFilter(filter);
                   }}
                 >
                   <span className={`item-angle fa fa-angle-${filter.selected ? 'up' : 'down'}`} />

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Type, Language, locationCode, message, enterKeyPress, PathSearchStatus } from './utils/utils';
-import { PathResult, Path, MapItem, Vertical, Filter } from './utils/interfaces';
-import { filters, facilities, buildings, contents, icons } from './data';
+import { Language, Message, enterKeyPress, PathSearchStatus } from './utils/misc-utils';
+import { locationCode } from './data/locations';
+import { PathResult, Path, MapItem, Vertical } from './utils/interfaces';
 
 import config from './config';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -19,20 +19,24 @@ import LocationBanner from './components/location-banner/LocationBanner';
 import PathSearchBox from './components/path-search-box/PathSearchBox';
 import FloorPicker from './components/floor-picker/FloorPicker';
 import SidePanel from './components/side-panel/SidePanel';
-import { FIX_ROOM_BANNER_POS } from './utils/map_constants';
+import { FIX_ROOM_BANNER_POS } from './utils/map-fix-constants';
+import { filters, facilities } from './data/facilities';
+import buildings from './data/buildings';
+import contents from './data/text-content';
+import icons from './data/fa-icons';
+import { getLocalStorageLanguage, setLocalStorageLanguage } from './utils/local-storage-utils';
 
 interface AppState {
   floor: number;
   building: string;
   location: locationCode;
   language: Language;
-  filters: Filter[];
   selectedItem: MapItem | null;
   selectedVertical: Vertical | null;
   paths: Path[] | null;
   pathSearchQuery: { start: MapItem | null; end: MapItem | null };
   pathSearchStatus: PathSearchStatus;
-  message: message | null;
+  message: Message | null;
   filtersVisible: boolean;
   floorPickerVisible: boolean;
 }
@@ -45,12 +49,11 @@ class App extends Component<{}, AppState> {
       building: config.default.building,
       location: config.default.location as locationCode,
       language: config.default.language as Language,
-      filters: filters,
       selectedItem: null,
       selectedVertical: null,
       paths: null,
       pathSearchQuery: { start: null, end: null },
-      pathSearchStatus: 'none',
+      pathSearchStatus: PathSearchStatus.NONE,
       message: null,
       filtersVisible: false,
       floorPickerVisible: false,
@@ -59,12 +62,7 @@ class App extends Component<{}, AppState> {
 
   componentDidMount() {
     if (window.location.pathname === '/') return;
-
-    const lang =
-      window.localStorage.getItem('language') === null
-        ? Language.CS
-        : Number.parseInt(window.localStorage.getItem('language')!);
-
+    const lang = getLocalStorageLanguage();
     const query = window.location.pathname.slice(1);
 
     for (const building in buildings) {
@@ -103,20 +101,20 @@ class App extends Component<{}, AppState> {
   }
 
   setDefaultState = () => {
-    this.state.filters.forEach(f => (f.selected = false));
+    filters.forEach(f => (f.selected = false));
     this.setState({
       floor: config.default.floor,
       building: config.default.building,
       location: config.default.location as locationCode,
       pathSearchQuery: { start: null, end: null },
       paths: null,
-      pathSearchStatus: 'none',
+      pathSearchStatus: PathSearchStatus.NONE,
     });
   };
 
   toggleLanguage = () => {
     const language = this.state.language === Language.CS ? Language.EN : Language.CS;
-    window.localStorage.setItem('language', language + '');
+    setLocalStorageLanguage(language);
     this.setState({ language: language });
   };
 
@@ -152,20 +150,7 @@ class App extends Component<{}, AppState> {
   };
 
   setFloorPickerVisible = (visible: boolean) => {
-    // console.log(visible)
     this.setState({ floorPickerVisible: visible });
-  };
-
-  toggleFilter = (type: Type) => {
-    const filters = this.state.filters;
-
-    for (let i = 0; i < filters.length; i++) {
-      if (filters[i].type === type) {
-        filters[i].selected = !filters[i].selected;
-        this.setState({ filters: filters });
-        return;
-      }
-    }
   };
 
   setCurrentFloor = (floor: number) => {
@@ -174,7 +159,7 @@ class App extends Component<{}, AppState> {
     });
   };
 
-  setMessage = (message: message | null) => {
+  setMessage = (message: Message | null) => {
     this.setState({ message: message });
   };
 
@@ -213,7 +198,7 @@ class App extends Component<{}, AppState> {
   setPaths = (pathResults: PathResult[]) => {
     const end = this.state.pathSearchQuery.end! as MapItem;
     this.setState({
-      pathSearchStatus: 'none',
+      pathSearchStatus: PathSearchStatus.NONE,
       paths: buildPaths(pathResults, end.floor),
     });
   };
@@ -224,7 +209,7 @@ class App extends Component<{}, AppState> {
 
   hidePathSearchBox = () => {
     this.setState({
-      pathSearchStatus: 'none',
+      pathSearchStatus: PathSearchStatus.NONE,
       pathSearchQuery: { start: null, end: null },
       paths: null,
     });
@@ -319,7 +304,6 @@ class App extends Component<{}, AppState> {
           lang={language}
           location={location}
           visible={filtersVisible}
-          toggleFilter={this.toggleFilter}
           setSelected={this.setSelectedItem}
           toggleVisibility={this.toggleFiltersVisibility}
           toggleLanguage={this.toggleLanguage}
@@ -333,24 +317,25 @@ class App extends Component<{}, AppState> {
           <i className="fa fa-angle-down" aria-hidden="true" />
         </button>
 
-        {pathSearchStatus === 'searching' && pathSearchBoxVisible && (
+        {pathSearchStatus === PathSearchStatus.SEARCHING && pathSearchBoxVisible && (
           <div className="dimmer">
             <i className={'fa fa-spinner fa-pulse dimmer-icon'}></i>
           </div>
         )}
 
-        {pathSearchStatus.includes('failed') && pathSearchBoxVisible && (
-          <div className="dimmer" onClick={() => this.setPathSearchingStatus('none')}>
-            <div>
-              <p>
-                {pathSearchStatus === 'failed-fetch'
-                  ? contents.searchStatus.connectionLost[language]
-                  : contents.searchStatus.pathNotFound[language]}
-              </p>
-              <i className="fa fa-close" aria-hidden="true" onClick={() => this.setPathSearchingStatus('none')}></i>
+        {(pathSearchStatus === PathSearchStatus.FAILED_FETCH || pathSearchStatus === PathSearchStatus.FAILED_SEARCH) &&
+          pathSearchBoxVisible && (
+            <div className="dimmer" onClick={() => this.setPathSearchingStatus(PathSearchStatus.NONE)}>
+              <div>
+                <p>
+                  {pathSearchStatus === PathSearchStatus.FAILED_FETCH
+                    ? contents.searchStatus.connectionLost[language]
+                    : contents.searchStatus.pathNotFound[language]}
+                </p>
+                <i className="fa fa-close" aria-hidden="true" onClick={() => this.setPathSearchingStatus(PathSearchStatus.NONE)}></i>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
         {!buildings[building].ready && (
           <div className="dimmer">

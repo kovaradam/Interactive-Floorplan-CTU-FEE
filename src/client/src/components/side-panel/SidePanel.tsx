@@ -1,8 +1,9 @@
 import React from 'react';
 import { MapItem } from '../../utils/interfaces';
-import { Language, locationCode, Type } from '../../utils/utils';
+import { Language } from '../../utils/misc-utils';
+import { locationCode } from '../../data/locations'
 import Legend from '../legend/Legend';
-import { contents } from '../../data';
+import contents from '../../data/text-content';
 import Filters from '../filters/Filters';
 import './SidePanel.css';
 
@@ -10,13 +11,12 @@ type props = {
   lang: Language;
   location: locationCode;
   visible: boolean;
-  toggleFilter: (type: Type) => void;
   setSelected: (item: MapItem) => void;
   toggleVisibility: () => void;
   toggleLanguage: () => void;
 };
 
-const SidePanel = ({ lang, location, visible, toggleFilter, setSelected, toggleVisibility, toggleLanguage }: props) => {
+const SidePanel = ({ lang, location, visible, setSelected, toggleVisibility, toggleLanguage }: props) => {
   return (
     <aside className={`side-panel-wrapper side-panel-${visible ? 'visible' : 'hidden'}`}>
       <h1 onClick={toggleVisibility}>
@@ -25,7 +25,7 @@ const SidePanel = ({ lang, location, visible, toggleFilter, setSelected, toggleV
         <span className="fa fa-angle-right hide-side-panel-icon" />
       </h1>
 
-      <Filters lang={lang} location={location} toggleFilter={toggleFilter} setSelected={setSelected} />
+      <Filters lang={lang} location={location} setSelected={setSelected} />
       
 
       <Legend lang={lang} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { buildings } from '../../data';
+import buildings from '../../data/buildings';
 import './Toilets.css';
-import { normalizeToMapY, normalizeToMapX } from '../../utils/utils';
+import { normalizeToMapY, normalizeToMapX } from '../../utils/misc-utils';
 class Toilets extends Component<{
   currentBuilding: string;
   currentFloor: number;

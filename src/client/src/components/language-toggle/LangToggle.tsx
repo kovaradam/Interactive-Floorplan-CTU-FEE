@@ -1,6 +1,6 @@
 import React from 'react';
 import './LangToggle.css';
-import { enterKeyPress } from '../../utils/utils';
+import { enterKeyPress } from '../../utils/misc-utils';
 
 type props = { isCS: boolean; onClick: () => void };
 

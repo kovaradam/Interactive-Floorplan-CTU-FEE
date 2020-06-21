@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Verticals.css';
-import { Type, normalizeToMapY, normalizeToMapX } from '../../utils/utils';
-import { verticals } from '../../data';
+import { Type, normalizeToMapY, normalizeToMapX } from '../../utils/misc-utils';
+import verticals from '../../data/verticals';
 import { Vertical } from '../../utils/interfaces';
 class Verticals extends Component<{
   floor: number;

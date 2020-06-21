@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import contents from '../../data/text-content';
-import { Language, PathSearchStatus } from '../../utils/utils';
+import { Language, PathSearchStatus } from '../../utils/misc-utils';
 import myFetch from '../../utils/fetch';
 import './PathSearchBox.css';
 import { MapItem, PathResult } from '../../utils/interfaces';
+import { getLocalStorageAccessibility, setLocalStorageAccessibility } from '../../utils/local-storage-utils';
 
 class PathSearchBox extends Component<{
   query: { start: MapItem | null; end: MapItem | null };
@@ -14,7 +15,7 @@ class PathSearchBox extends Component<{
   setCurrentFloor: (n: number) => void;
   setBuilding: (b: string) => void;
 }> {
-  state = { dragged: false, accessibility: window.localStorage.getItem('accessibility') === 'on' };
+  state = { dragged: false, accessibility: getLocalStorageAccessibility() };
   dragged = false;
   dX = 0;
   dY = 0;
@@ -23,12 +24,12 @@ class PathSearchBox extends Component<{
     const { start, end } = this.props.query;
     if (start && end && start.id !== end.id) {
       const url = `path/?startId=${start.id}&endId=${end.id}&accessibility=${this.state.accessibility}`;
-      this.props.setSearching('searching');
+      this.props.setSearching(PathSearchStatus.SEARCHING);
       myFetch(url)
         .then(result => {
           console.log(result);
           if (result.error) {
-            setTimeout(() => this.props.setSearching('failed-search'), 3000);
+            setTimeout(() => this.props.setSearching(PathSearchStatus.FAILED_SEARCH), 3000);
             return;
           }
           if (result.length > 0) {
@@ -36,7 +37,7 @@ class PathSearchBox extends Component<{
           }
         })
         .catch(e => {
-          this.props.setSearching('failed-fetch');
+          this.props.setSearching(PathSearchStatus.FAILED_FETCH);
         });
     }
   };
@@ -76,7 +77,7 @@ class PathSearchBox extends Component<{
 
   accessibilityButtonHandler = () => {
     const accessibility = this.state.accessibility;
-    window.localStorage.setItem('accessibility', accessibility ? 'off' : 'on');
+    setLocalStorageAccessibility(!accessibility)
     this.setState({ accessibility: !accessibility });
   };
 

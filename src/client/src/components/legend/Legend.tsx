@@ -1,7 +1,7 @@
 import React from 'react';
 import contents from '../../data/text-content';
 import './Legend.css';
-import { Language, Type } from '../../utils/utils';
+import { Language, Type } from '../../utils/misc-utils';
 
 type props = { lang: Language };
 

@@ -1,5 +1,4 @@
-import { toiletTypes, Type } from '../utils/utils';
-const wc = toiletTypes;
+import { toiletTypes as wc, Type } from '../utils/misc-utils';
 export default {
   T2: {
     location: 'T2',

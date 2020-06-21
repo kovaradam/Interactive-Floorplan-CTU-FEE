@@ -54,9 +54,8 @@
   cursor: pointer;
 }
 
-span {
+.dd-header span {
   float: right;
-  /* margin-right: 7px; */
 }
 
 .react-slidedown.my-dropdown-slidedown {

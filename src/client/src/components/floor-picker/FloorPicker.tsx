@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import './FloorPicker.css';
 import { Vertical } from '../../utils/interfaces';
-import { enterKeyPress, getFloorString, Language } from '../../utils/utils';
+import { enterKeyPress, Language } from '../../utils/misc-utils';
+import { getFloorString } from '../../utils/location-utils';
 import onClickOutside from 'react-onclickoutside';
 
 class FloorPicker extends Component<{

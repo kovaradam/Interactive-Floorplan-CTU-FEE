@@ -1,4 +1,4 @@
-import { Type } from './utils';
+import { Type } from './misc-utils';
 
 export interface Path {
   floor: number;

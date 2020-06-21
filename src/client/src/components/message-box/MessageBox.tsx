@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import onClickOutside from 'react-onclickoutside';
 import './MessageBox.css';
-import { message } from '../../utils/utils';
+import { Message } from '../../utils/misc-utils';
 
 class SearchStatusBox extends Component<{
-  message: message | null;
-  setMessage: (m: message | null) => void;
+  message: Message | null;
+  setMessage: (m: Message | null) => void;
 }> {
   icon = 'fa-check';
   text = '';

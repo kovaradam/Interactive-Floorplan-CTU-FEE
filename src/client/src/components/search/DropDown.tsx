@@ -4,7 +4,7 @@ import onClickOutside from 'react-onclickoutside';
 import './DropDown.css';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
-import { enterKeyPress } from '../../utils/utils';
+import { enterKeyPress } from '../../utils/misc-utils';
 
 type DropDownState = {
   listOpen: boolean;

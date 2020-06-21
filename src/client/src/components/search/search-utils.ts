@@ -1,4 +1,5 @@
-import { locations, buildings } from '../../data';
+import locations from "../../data/locations";
+import buildings from "../../data/buildings";
 
 export const getBuilding = (title: string) => {
   for (let i = 0; i < locations.length; i++) {
@@ -66,3 +67,15 @@ export const findRoomById = (id: string) => {
   throw Error;
 };
 
+
+export const removeDiacritic = (input: string) => {
+  const a = 'áäčçďéěëíňóöřšťúůüýž';
+  const b = 'aaccdeeeinoorstuuuyz';
+  for (let i = 0; i < input.length; i++) {
+    const index = a.indexOf(input.charAt(i));
+    if (index >= 0) {
+      input = input.substring(0, i) + b.charAt(index) + input.substring(i + 1);
+    }
+  }
+  return input;
+};

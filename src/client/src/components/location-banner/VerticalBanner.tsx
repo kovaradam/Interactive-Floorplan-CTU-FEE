@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Vertical } from '../../utils/interfaces';
 import contents from '../../data/text-content';
-import { Language } from '../../utils/utils';
+import { Language } from '../../utils/misc-utils';
 import onClickOutside from 'react-onclickoutside';
 import FloorPicker from '../floor-picker/FloorPicker';
 

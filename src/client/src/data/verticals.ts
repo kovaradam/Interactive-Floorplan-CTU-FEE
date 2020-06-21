@@ -1,4 +1,4 @@
-import { Type } from '../utils/utils';
+import { Type } from '../utils/misc-utils';
 
 export default {
   T2: [
@@ -13,7 +13,6 @@ export default {
     { id: 'stair_cloak1', from: -1, to: 0, accessibility: false, type: Type.STAIR, x: 500, y: 358, height: 20, icon: 'stairL',},
     { id: 'pater0', from: -1, to: 8, accessibility: false, type: Type.PATER, x: 500, y: 264, height: 20, width: 17 },
     { id: 'pater1', from: -1, to: 8, accessibility: false, type: Type.PATER, x: 240, y: 264, height: 20, width: 17 },
-    // { id: "elevA3", from: -1, to: 8, accessibility: true, type: Type.ELEVATOR, x:295 ,y: 528},
     { id: 'elevA4', from: -1, to: 5, accessibility: true, type: Type.ELEVATOR, x: 627, y: 328, height: 20 },
     { id: 'elevB2', from: -1, to: 8, accessibility: true, type: Type.ELEVATOR, x: 234, y: 110, height: 20 },
     { id: 'elevB3', from: -1, to: 8, accessibility: true, type: Type.ELEVATOR, x: 495, y: 110, height: 20 },

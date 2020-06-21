@@ -1,4 +1,4 @@
-import { Type } from '../utils/utils';
+import { Type } from '../utils/misc-utils';
 
 export const filters = [
   { title: ['Zdraví', 'Health'], type: Type.HEALTH, selected: false },

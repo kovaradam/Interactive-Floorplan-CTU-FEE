@@ -3,12 +3,15 @@ import './Search.css';
 import DropDown from './DropDown';
 import SearchBar from './SearchBar';
 import { MapItem, Room } from '../../utils/interfaces';
-import { locationCode, message, Language } from '../../utils/utils';
+import { Message, Language } from '../../utils/misc-utils';
 import myFetch from '../../utils/fetch';
-import { buildings, contents, locations, icons } from '../../data';
 import { findRoom, findRoomById } from './search-utils';
 import { deptInBuilding, getBuildingOfDept } from '../../utils/location-utils';
-import { FIX_ROOM_BANNER_POS } from '../../utils/map_constants';
+import { FIX_ROOM_BANNER_POS } from '../../utils/map-fix-constants';
+import icons from '../../data/fa-icons';
+import buildings from '../../data/buildings';
+import locations, { locationCode} from '../../data/locations';
+import contents from '../../data/text-content';
 
 type SearchState = {
   currentBuilding: string;
@@ -26,7 +29,7 @@ export class Search extends Component<
     toggleLocation: (id: locationCode) => void;
     setSelectedItem: (item: MapItem) => void;
     lang: Language;
-    setMessage: (m: message | null) => void;
+    setMessage: (m: Message | null) => void;
   },
   SearchState
 > {

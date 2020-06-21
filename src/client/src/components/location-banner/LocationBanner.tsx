@@ -4,15 +4,15 @@ import onClickOutside from 'react-onclickoutside';
 import { MapItem } from '../../utils/interfaces';
 import contents from '../../data/text-content';
 import icons from '../../data/fa-icons';
-import { Language, message } from '../../utils/utils';
-import { FIX_BANNER_POS } from '../../utils/map_constants';
+import { Language, Message } from '../../utils/misc-utils';
+import { FIX_BANNER_POS } from '../../utils/map-fix-constants';
 
 class LocationBanner extends Component<{
   item: MapItem;
   lang: Language;
   clickOutsideHandler: () => void;
   mapButtonHandler: (i: MapItem) => void;
-  setMessage: (m: message) => void;
+  setMessage: (m: Message) => void;
 }> {
 
 

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import './Map.css';
-import { buildings, facilities, contents } from '../../data';
 import PathComponent from '../path/Path';
 import { Path, MapItem, Vertical, Facility } from '../../utils/interfaces';
-import { Language, locationCode, normalizeToMapX, normalizeToMapY } from '../../utils/utils';
+import { Language, normalizeToMapX, normalizeToMapY } from '../../utils/misc-utils';
+import { locationCode} from '../../data/locations';
 import Toilets from '../icon-items/Toilets';
 import Verticals from '../icon-items/Verticals';
 import TouchHandler from '../../utils/touchHandler';
 import { getLocationOfBuilding } from '../../utils/location-utils';
-import { FIX_ROOM_BANNER_POS, FIX_ROOM_NUMBER_POS, FIX_ENTRY_BANNER_POS, FIX_FACILITY_ICON_POS, FIX_MARKER_POS } from '../../utils/map_constants';
+import { FIX_ROOM_BANNER_POS, FIX_ROOM_NUMBER_POS, FIX_ENTRY_BANNER_POS, FIX_FACILITY_ICON_POS, FIX_MARKER_POS } from '../../utils/map-fix-constants';
+import buildings from '../../data/buildings';
+import contents from '../../data/text-content';
+import { facilities } from '../../data/facilities';
 
 class Map extends Component<{
   floorNumber: number;

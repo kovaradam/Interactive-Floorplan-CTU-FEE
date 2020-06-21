@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import onClickOutside from 'react-onclickoutside';
 import stringSimilarity from 'string-similarity';
-import { Language, locationCode, message, removeDiacritic } from '../../utils/utils';
+import { Language, Message } from '../../utils/misc-utils';
+import { locationCode } from '../../data/locations';
 import { MapItem, Facility } from '../../utils/interfaces';
-import { findRoomById, getfloorNumber, getNumberFromId, getLocationFromId, isValidLocation } from './search-utils';
-import { icons, contents, facilities } from '../../data';
-import { FIX_ROOM_BANNER_POS } from '../../utils/map_constants';
+import {
+  findRoomById,
+  getfloorNumber,
+  getNumberFromId,
+  getLocationFromId,
+  isValidLocation,
+  removeDiacritic,
+} from './search-utils';
+import icons from '../../data/fa-icons';
+import { facilities } from '../../data/facilities';
+import contents from '../../data/text-content';
+import { FIX_ROOM_BANNER_POS } from '../../utils/map-fix-constants';
 
 type SearchBarState = {
   listOpen: boolean;
@@ -20,7 +30,7 @@ class SearchBar extends Component<{
   currentLocation: string;
   searchButtonHandler: () => void;
   setSelected: (item: MapItem) => void;
-  setMessage: (m: message) => void;
+  setMessage: (m: Message) => void;
 }> {
   constructor(props: {
     updateSearch: any;
@@ -96,7 +106,7 @@ class SearchBar extends Component<{
   };
 
   facilityClickHandler = (item: Facility) => {
-    const {lang} = this.props
+    const { lang } = this.props;
     this.props.setSelected({
       x: item.x,
       y: item.y,
@@ -105,10 +115,10 @@ class SearchBar extends Component<{
       title: item.title[lang],
       type: item.type[0],
       building: item.building,
-      desc: item.desc?item.desc[lang]:undefined
-    })
+      desc: item.desc ? item.desc[lang] : undefined,
+    });
     this.hideList();
-  }
+  };
 
   searchButtonHandler = () => {
     this.showList();
@@ -162,7 +172,13 @@ class SearchBar extends Component<{
         {facilityList.length > 0 && listOpen && (
           <ul className="search-list">
             {facilityList.map(facility => (
-              <li className="search-list-item" key={facility.id} onClick={() => {this.facilityClickHandler(facility as any)}}>
+              <li
+                className="search-list-item"
+                key={facility.id}
+                onClick={() => {
+                  this.facilityClickHandler(facility as any);
+                }}
+              >
                 <h2>{facility.title[Math.abs(lang - 1)]}</h2>
                 <h1>{facility.title[lang]}</h1>
               </li>

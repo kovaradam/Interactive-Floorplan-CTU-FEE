@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './BuildingPicker.css';
 import FontAwesome from 'react-fontawesome';
-import { Language, getFloorString, enterKeyPress } from '../../utils/utils';
-import { getLocationOfBuilding } from '../../utils/location-utils';
-import { buildings } from '../../data';
+import { Language, enterKeyPress } from '../../utils/misc-utils';
+import { getLocationOfBuilding, getFloorString } from '../../utils/location-utils';
+import buildings from '../../data/buildings';
 class BuildingPicker extends Component<{
   building: string;
   floor: number;
