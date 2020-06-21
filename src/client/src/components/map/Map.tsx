@@ -3,12 +3,18 @@ import './Map.css';
 import PathComponent from '../path/Path';
 import { Path, MapItem, Vertical, Facility } from '../../utils/interfaces';
 import { Language, normalizeToMapX, normalizeToMapY } from '../../utils/misc-utils';
-import { locationCode} from '../../data/locations';
+import { locationCode } from '../../data/locations';
 import Toilets from '../icon-items/Toilets';
 import Verticals from '../icon-items/Verticals';
 import TouchHandler from '../../utils/touchHandler';
 import { getLocationOfBuilding } from '../../utils/location-utils';
-import { FIX_ROOM_BANNER_POS, FIX_ROOM_NUMBER_POS, FIX_ENTRY_BANNER_POS, FIX_FACILITY_ICON_POS, FIX_MARKER_POS } from '../../utils/map-fix-constants';
+import {
+  FIX_ROOM_BANNER_POS,
+  FIX_ROOM_NUMBER_POS,
+  FIX_ENTRY_BANNER_POS,
+  FIX_FACILITY_ICON_POS,
+  FIX_MARKER_POS,
+} from '../../utils/map-fix-constants';
 import buildings from '../../data/buildings';
 import contents from '../../data/text-content';
 import { facilities } from '../../data/facilities';
@@ -26,20 +32,25 @@ class Map extends Component<{
   swipeHorHandler: (dir: number) => void;
   setBuilding: (b: locationCode) => void;
 }> {
-  state = { scale: 1, translate: { x: 1, y: 1 } };
+  defaultState = { scale: 1, translate: { x: 1, y: 1 } };
+  state = this.defaultState
   scaleFix = false;
   prevSelectedItemId = '';
-  swipeHandler: any;
-  map: any;
+  swipeHandler: any = null;
+  map: HTMLElement | null = null;
 
-  SCALE_BOUND = {min: 1, max: 2};
+  SCALE_BOUND = { min: 1, max: 2 };
+
+  setMapRef = (element: HTMLElement) => {
+    this.map = element;
+  };
 
   pinchZoomHandler = (scale: number) => {
     scale += this.state.scale;
     if (scale > this.SCALE_BOUND.max) scale = this.SCALE_BOUND.max;
-    if (scale < this.SCALE_BOUND.min) {
+    if (scale <= this.SCALE_BOUND.min) {
       this.swipeHandler.zoomedIn = false;
-      this.setState({ scale: this.SCALE_BOUND.min, translate: { x: 1, y: 1 } });
+      this.setState(this.defaultState);
     } else {
       this.setState({ scale: scale });
     }
@@ -74,10 +85,10 @@ class Map extends Component<{
       this.pinchZoomHandler,
       this.zoomPanHandler,
     );
-    this.map.addEventListener('touchend', (e: TouchEvent) => this.swipeHandler.touchEnd(e), { passive: false });
-    this.map.addEventListener('touchstart', (e: TouchEvent) => this.swipeHandler.touchStart(e), { passive: false });
-    this.map.addEventListener('touchmove', (e: TouchEvent) => this.swipeHandler.touchMove(e), { passive: false });
-    this.map.addEventListener('touchcancel', (e: TouchEvent) => this.swipeHandler.touchCancel(e), { passive: false });
+    this.map!.addEventListener('touchend', (e: TouchEvent) => this.swipeHandler.touchEnd(e), { passive: false });
+    this.map!.addEventListener('touchstart', (e: TouchEvent) => this.swipeHandler.touchStart(e), { passive: false });
+    this.map!.addEventListener('touchmove', (e: TouchEvent) => this.swipeHandler.touchMove(e), { passive: false });
+    this.map!.addEventListener('touchcancel', (e: TouchEvent) => this.swipeHandler.touchCancel(e), { passive: false });
   }
 
   shouldComponentUpdate(_, __) {
@@ -86,22 +97,23 @@ class Map extends Component<{
 
   componentDidUpdate() {
     if (this.scaleFix) {
-      this.setState({ scale: 1, translate: { x: 1, y: 1 } });
+      this.setState(this.defaultState);
       this.scaleFix = false;
     }
   }
 
-  // FOR DRAWING PURPOSES
-  // svg
-  // points = ''
+  // FOR DRAWING PURPOSES ONLY
+  // svg: SVGSVGElement | null = null;
+  // points = '';
   // registerPoints = (e: React.MouseEvent) => {
-  //   const point = this.svg.createSVGPoint() as SVGPoint
-  //   point.x = e.clientX; 
+  //   const point = this.svg!.createSVGPoint() as SVGPoint;
+  //   point.x = e.clientX;
   //   point.y = e.clientY;
-  //   const cursor = (point.matrixTransform(this.svg.getScreenCTM().inverse()))
-  //   this.points += `${cursor.x.toFixed()},${cursor.y.toFixed()} `
-  //   console.log(this.points)
-  // }
+  //   const cursor = point.matrixTransform(this.svg!.getScreenCTM()!.inverse());
+  //   this.points += `${cursor.x.toFixed()},${cursor.y.toFixed()} `;
+  //   console.log(this.points);
+  // };
+  // FOR DRAWING PURPOSES ONLY
 
   render() {
     const { floorNumber: floor, paths, lang, building, selectedItem } = this.props;
@@ -111,26 +123,25 @@ class Map extends Component<{
       (i: Facility) => i.floor === floor && i.building === building,
     );
     let scale = this.state.scale;
-    const translate = this.state.translate;
+    let translate = this.state.translate;
     if (selectedItem && selectedItem.id !== this.prevSelectedItemId) {
       this.scaleFix = true;
-      scale =  1;
-      translate.x = 1;
-      translate.y = 1;
+      scale = this.defaultState.scale;
+      translate = this.defaultState.translate
     }
     this.prevSelectedItemId = selectedItem?.id || '';
-    
+
     return (
       <div className="map-container">
         <section
           className={`map`}
-          ref={ref => (this.map = ref)}
+          ref={this.setMapRef}
           onWheel={e => {
             this.props.wheelHandler(-e.deltaY);
           }}
-         style={{ transform: `scale(${scale}) translate(${translate.x}px,${translate.y}px)` }}
+          style={{ transform: `scale(${scale}) translate(${translate.x}px,${translate.y}px)` }}
         >
-          <svg width="720" height="540" viewBox="0 0 580 400" >
+          <svg width="720" height="540" viewBox="0 0 580 400">
             <defs>
               <marker id="pathMarkerStart" markerWidth="4" markerHeight="4" refX="2" refY="2">
                 <circle cx="2" cy="2" r="0.9" />
@@ -141,17 +152,17 @@ class Map extends Component<{
             </defs>
             {outlines
               .filter(o => o.from <= floor && (o.hide ? o.to >= floor : true))
-              .map(outline =>
-                  <polygon
-                    className="outline"
-                    key={outline.id}
-                    id={outline.id}
-                    points={outline.points}
-                    strokeWidth="1.5"
-                    stroke={outline.to >= floor ? '#000' : '#ccc'}
-                    fillOpacity="0"
-                  />
-              )}
+              .map(outline => (
+                <polygon
+                  className="outline"
+                  key={outline.id}
+                  id={outline.id}
+                  points={outline.points}
+                  strokeWidth="1.5"
+                  stroke={outline.to >= floor ? '#000' : '#ccc'}
+                  fillOpacity="0"
+                />
+              ))}
             {classrooms.map(room => (
               <polygon
                 id={room.id}
