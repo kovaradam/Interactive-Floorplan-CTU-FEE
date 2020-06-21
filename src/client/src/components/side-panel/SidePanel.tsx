@@ -21,7 +21,6 @@ const SidePanel = ({ lang, location, visible, setSelected, toggleVisibility, tog
     <aside className={`side-panel-wrapper side-panel-${visible ? 'visible' : 'hidden'}`}>
       <h1 onClick={toggleVisibility}>
         {contents['filters-header-title'][lang]}
-        
         <span className="fa fa-angle-right hide-side-panel-icon" />
       </h1>
 

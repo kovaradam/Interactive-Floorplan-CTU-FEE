@@ -153,6 +153,7 @@ a {
   }
 
   .hide-side-panel-icon {
+    float:right;
     display: block;
     margin-top: 1.5vh;
     pointer-events: auto;
