@@ -11,7 +11,7 @@ export const getBuilding = (title: string) => {
 
 export const isValidLocation = (id: string) => {
   const location = getLocationFromId(id);
-  return locations.findIndex(l => l.title === location) > 0;
+  return locations.findIndex(l => l.title === location) >= 0;
 };
 export const getLocationFromId = (id: string) => {
   return id.slice(0, id.indexOf(':')).toUpperCase();
