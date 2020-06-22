@@ -261,6 +261,10 @@
     align-items: center;
   }
 
+  #search-box button i.search-path-icon{
+    font-size: 0.8em;
+  }
+
   #search-box button.accessibility-button {
     margin-right: 10px;
   }
