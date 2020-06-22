@@ -80,7 +80,7 @@
   font-size: 0.9em;
 }
 
-.SearchButton {
+.search-button {
   /* background-color: rgb(135, 176, 253);  */
   background-color: white;
   border-style: none;
@@ -96,13 +96,13 @@
   float: right;
 }
 
-.SearchButton:hover,
-.SearchButton:focus {
+.search-button:hover,
+.search-button:focus {
   color: white;
   cursor: pointer;
   background-color: rgb(170, 196, 243);
 }
-.SearchButton:active {
+.search-button:active {
   background-color: rgb(215, 225, 245);
 }
 
@@ -193,7 +193,7 @@
     font-size: 0.7em;
   }
 
-  .SearchButton {
+  .search-button {
     background-color: rgb(170, 196, 243);
     /* width: 8vh; */
     height: 15vw;
@@ -240,7 +240,7 @@
     min-height: 8vw;
   }
 
-  .SearchButton{
+  .search-button{
     height: 8vw;
   }
 

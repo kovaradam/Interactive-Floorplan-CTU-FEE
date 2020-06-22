@@ -149,7 +149,7 @@ class SearchBar extends Component<{
           onKeyDown={this.props.handleKeyDown}
         ></input>
         <button
-          className="SearchButton fa fa-search"
+          className="search-button fa fa-search"
           onClick={e => {
             this.searchButtonHandler();
             e.currentTarget.blur();
