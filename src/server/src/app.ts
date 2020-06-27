@@ -1,11 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
-import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import config from './config/config';
 import routes from './routes/routes';
 import mongoose from 'mongoose';
-import { createTreeNodes } from './db/db-utils';
+import { createTreeNodes } from './db/utils';
 import path from 'path';
 import helmet from 'helmet';
 
@@ -23,12 +22,11 @@ const app = express();
 
 app.use(helmet());
 app.use(json());
-app.use(cors());
 
 app.set('etag', false);
 
 const limiter = rateLimit({
-  windowMs: 1 * 20 * 1000, // 20 secs
+  windowMs: 1 * 10 * 1000, // 10 sec
   max: 10
 });
 
@@ -45,4 +43,5 @@ app.use(express.static(path.join(__dirname, '..', 'build')));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
+
 app.listen(config.server.port);

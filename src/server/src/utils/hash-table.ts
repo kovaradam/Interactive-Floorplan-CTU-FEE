@@ -4,7 +4,7 @@ export default class NodeHashTable {
   private data: (TreeNode | null)[] = [];
 
   constructor(size: number, private collisionCountOnInsert = 0, private collisionCountOnGet = 0) {
-    size *= 3;
+    size *= 2;
     for (let i = 0; i < size; i++) {
       this.data.push(null);
     }
@@ -51,6 +51,6 @@ export default class NodeHashTable {
   }
 
   get stats(): string {
-    return `Hashmap - size: ${this.size} collisions on get: ${this.collisionCountOnGet} collisions on insert: ${this.collisionCountOnInsert}`;
+    return `Hashtable - size: ${this.size} collisions on get: ${this.collisionCountOnGet} collisions on insert: ${this.collisionCountOnInsert}`;
   }
 }

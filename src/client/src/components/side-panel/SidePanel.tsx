@@ -27,8 +27,6 @@ const SidePanel = ({ lang, location, visible, setSelected, toggleVisibility, tog
       <Filters lang={lang} location={location} setSelected={setSelected} />
       
 
-      <Legend lang={lang} />
-
       <div id="lang-toggle-container">
         <p>{contents.language[(lang - 1)*(-1)] + ':'}</p>
         <span onClick={toggleLanguage}>
@@ -37,6 +35,8 @@ const SidePanel = ({ lang, location, visible, setSelected, toggleVisibility, tog
           <p className={`lang-toggle-${lang === Language.EN ? 'active' : 'passive'}`}>EN</p>
         </span>
       </div>
+
+      <Legend lang={lang} />
 
       <section id="info-container">
         <div tabIndex={0} className="help info">

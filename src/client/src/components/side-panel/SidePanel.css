@@ -27,51 +27,6 @@
   pointer-events: none;
 }
 
-#lang-toggle-container,
-#lang-toggle-container span {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-}
-
-#lang-toggle-container p {
-  margin: 20px 0;
-  text-align: left;
-  font-weight: 300;
-  font-size: 1.5em;
-  flex: 1;
-}
-
-#lang-toggle-container span {
-  justify-content: flex-end;
-  flex: 1;
-  /* padding: 0 25px 0 60px;   */
-}
-
-#lang-toggle-container span:hover {
-  cursor: pointer;
-}
-
-#lang-toggle-container span p {
-  padding: 0 5px;
-  text-align: center;
-  transition: all 100ms;
-  flex:0;
-}
-
-#lang-toggle-container p:active {
-  /* transform: scale(1.2); */
-  color: rgb(150, 151, 153);
-}
-
-#lang-toggle-container p.lang-toggle-passive:hover,
-#lang-toggle-container p.lang-toggle-active {
-  font-weight: 400;
-}
-
-#lang-toggle-container p.lang-toggle-active:hover {
-  font-weight: 400;
-}
 
 #info-container {
   overflow: hidden;
@@ -80,7 +35,7 @@
   justify-content: space-around;
   padding: 10px;
   border-width: 1px 0 0 0;
-  margin-top: 5px;
+  margin-top: 25px;
 }
 
 .info {
@@ -108,6 +63,12 @@ a {
 .info:focus {
   color: rgb(49, 49, 49);
   cursor: pointer;
+}
+
+@media only screen and (min-width: 48em) {
+  #lang-toggle-container {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 48em) {
@@ -153,7 +114,7 @@ a {
   }
 
   .hide-side-panel-icon {
-    float:right;
+    float: right;
     display: block;
     margin-top: 1.5vh;
     pointer-events: auto;
@@ -161,6 +122,51 @@ a {
 
   .side-panel-wrapper h1 {
     pointer-events: auto;
+  }
+
+  #lang-toggle-container,
+  #lang-toggle-container span {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  #lang-toggle-container p {
+    margin: 20px 0;
+    text-align: left;
+    font-weight: 300;
+    font-size: 1.5em;
+    flex: 1;
+  }
+
+  #lang-toggle-container span {
+    justify-content: flex-end;
+    flex: 1;
+  }
+
+  #lang-toggle-container span:hover {
+    cursor: pointer;
+  }
+
+  #lang-toggle-container span p {
+    padding: 0 5px;
+    text-align: center;
+    transition: all 100ms;
+    flex: 0;
+  }
+
+  #lang-toggle-container p:active {
+    /* transform: scale(1.2); */
+    color: rgb(150, 151, 153);
+  }
+
+  #lang-toggle-container p.lang-toggle-passive:hover,
+  #lang-toggle-container p.lang-toggle-active {
+    font-weight: 400;
+  }
+
+  #lang-toggle-container p.lang-toggle-active:hover {
+    font-weight: 400;
   }
 }
 
