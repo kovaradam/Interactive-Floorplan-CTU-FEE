@@ -34,13 +34,13 @@ app.use('/api', limiter);
 
 app.use('/api', routes);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: err.message });
 });
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
-app.get('/*', (req, res) => {
+app.get('/', (_: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
