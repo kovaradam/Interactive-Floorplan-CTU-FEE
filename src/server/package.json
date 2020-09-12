@@ -20,7 +20,7 @@
     "express-rate-limit": "^5.1.1",
     "helmet": "^3.22.0",
     "mongoose": "^5.9.2",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@types/base-64": "^0.1.3",
